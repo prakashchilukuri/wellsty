@@ -3,283 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion Collection - ShopsBuzz</title>
-    
+    <title>Fashion Collection | Wellsty</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/fashion.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/products.js"></script>
+    <script src="js/common.js"></script>
 </head>
 <body>
-    <header>
+    <div class="hero-gradient-overlay"></div>
+
+    <header id="mainHeader" class="scrolled">
+        <div class="logo-container">
+            <div class="brand-name">Wellsty</div>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Home</a>
-            <a href="fashion.html" class="nav-active">Fashion</a>
+            <a href="fashion.html" class="active">Fashion</a>
+            <a href="accessories.html">Accessories</a>
             <a href="index.html#features">About</a>
         </nav>
-        <div class="logo-container">
-           <img src="images/logo.png" alt="ShopsBuzz Logo" class="site-logo" style="font-size: 1.8rem; color: #fa71ce;">
-            <div class="brand-name">ShopsBuzz</div>
-        </div>
         <div class="header-icons">
             <div class="search-wrapper" id="searchWrapper">
                 <i class="fas fa-search search-trigger" id="searchTrigger"></i>
-                <div class="search-expand" id="searchExpand">
-                    <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                <div class="search-expand glass" id="searchExpand">
+                    <input type="text" id="searchInput" placeholder="Search Wellsty..." autocomplete="off">
                     <i class="fas fa-times search-close" id="searchClose"></i>
                 </div>
             </div>
-            
             <a href="#" class="icon-btn" id="userBtn"><i class="far fa-user"></i></a>
-            
             <a href="#" class="icon-btn" id="cartBtn">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount" style="background-color: #FF4F81;">0</span>
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
             </a>
         </div>
     </header>
 
-    <!-- Include Common Modals -->
     <div id="modalsContainer"></div>
 
-    <section class="fashion-hero">
-        <div class="hero-content">
-            <h1>Trendsetting Collection</h1>
-            <p>Discover the latest styles curated just for you. Be bold, be you.</p>
+    <section class="container" style="padding-top: 10rem; padding-bottom: 5rem;">
+        <div class="section-header" style="text-align: left;">
+            <h1 class="section-title text-gradient">Streetwear</h1>
+            <p class="section-subtitle" style="margin: 0;">Elevated essentials for the urban explorer.</p>
         </div>
     </section>
 
-    <div class="filters">
-        <div class="filter-tags">
-            <button class="active">All</button>
-            <button>Men</button>
-            <button>Women</button>
-            <button>Footwear</button>
-            <button>Sale</button>
-        </div>
-        <div class="sort-option">
-            <select>
-                <option>Sort by: Newest</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-            </select>
-        </div>
-    </div>
-
-    <section class="products-section">
-        <div class="products-grid">
-            
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&auto=format&fit=crop&q=60" alt="Floral Summer Dress" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Women</span>
-                    <h3 class="product-title">Floral Summer Dress</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$49.99</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&auto=format&fit=crop&q=60" alt="Classic White Tee" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Men</span>
-                    <h3 class="product-title">Premium Cotton Tee</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$24.99</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=500&auto=format&fit=crop&q=60" alt="Velvet Evening Gown" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Women</span>
-                    <h3 class="product-title">Velvet Evening Gown</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$129.00</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=60" alt="Denim Jacket" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Men</span>
-                    <h3 class="product-title">Urban Denim Jacket</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$75.50</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60" alt="Running Shoes" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Footwear</span>
-                    <h3 class="product-title">Red Sport Runners</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$89.99</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500&auto=format&fit=crop&q=60" alt="Summer Shirt" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Men</span>
-                    <h3 class="product-title">Linen Beach Shirt</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$35.00</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&auto=format&fit=crop&q=60" alt="Designer Handbag" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Women</span>
-                    <h3 class="product-title">Leather Tote Bag</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$150.00</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-                <img src="https://images.unsplash.com/photo-1551028919-ac66e624ecd6?w=500&auto=format&fit=crop&q=60" alt="Jacket" class="product-image">
-                <div class="product-info">
-                    <span class="product-category">Women</span>
-                    <h3 class="product-title">Chic Blazer</h3>
-                    <div class="rating">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="price-row">
-                        <span class="price">$65.00</span>
-                        <button class="add-cart-btn"><i class="fas fa-shopping-bag"></i> Add</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card">
-    <div class="wishlist-btn"><i class="far fa-heart"></i></div>
-    <a href="product-details.html" style="text-decoration: none; color: inherit;">
-        <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1976&auto=format&fit=crop" alt="Rose Gold Watch" class="product-image">
-        <div class="product-info">
-            <span class="product-category">Accessories</span>
-            <h3 class="product-title">Rose Gold Analogue Watch</h3>
-            <div class="rating">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-            </div>
-            <div class="price-row">
-                <span class="price">$145.00</span>
-                </div>
-        </div>
-    </a>
-</div>
-
+    <section class="container" style="margin-bottom: 10rem;">
+        <div class="products-grid" id="fashionProductsGrid">
+            <!-- Products will be loaded dynamically -->
         </div>
     </section>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>ShopsBuzz</h4>
-                <p>Your ultimate destination for lifestyle and essentials. We bring quality and style together.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/shops_buzz" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col" style="padding-right: 2rem;">
+                    <div class="brand-name" style="margin-bottom: 2rem; display: block;">Wellsty</div>
+                    <p>Elevating Indian Streetwear through premium quality and modern aesthetics.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="fashion.html">Fashion</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Updates</h4>
+                    <p style="font-size: 0.85rem; margin-bottom: 1.5rem;">Join for exclusive collection drops.</p>
+                    <button class="btn-premium" style="width: 100%; border-radius: 8px; padding: 0.8rem;">Subscribe</button>
                 </div>
             </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="fashion.html">Fashion</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+            <div class="copyright">
+                &copy; 2026 Wellsty. All rights reserved.
             </div>
-            <div class="footer-col">
-                <h4>Customer Care</h4>
-                <ul>
-                    <li><a href="#">Tracking Order</a></li>
-                    <li><a href="#">Returns & Refunds</a></li>
-                    <li><a href="#">Shipping Info</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Info</h4>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> Coimbatore </li>
-                    <li><i class="fas fa-phone"></i> 9876543210 </li>
-                    <li><i class="fas fa-envelope"></i> shopsbuzz@gmail.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2023 ShopsBuzz. All rights reserved. Designed with <i class="fas fa-heart" style="color: #FF4F81;"></i>
         </div>
     </footer>
 
-    <!-- Common JS First -->
-    <script src="js/common.js"></script>
-    <!-- Page-specific JS -->
-    <script src="js/fashion.js"></script>
-    
-    <!-- Load Common Modals -->
     <script>
-        fetch('common-modals.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('modalsContainer').innerHTML = html;
-                
-                // Manually re-initialize the handlers after the elements are in the DOM
-                setupModalHandlers();
-                setupAuthForms();
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load fashion products
+            const fashionItems = getProductsByCategory('Fashion');
+            renderProducts('fashionProductsGrid', fashionItems);
+        });
     </script>
 </body>
-</html>
+</html>

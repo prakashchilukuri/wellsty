@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders — Wellsty</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .page-wrapper{max-width:1000px;margin:0 auto;padding:0 1.5rem;padding-top:calc(38px + var(--header-h) + 2rem);padding-bottom:5rem;min-height:80vh}
+    .page-title{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;margin-bottom:.5rem}
+    .page-sub{color:var(--text-muted);margin-bottom:2.5rem}
+    .order-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.5rem;overflow:hidden}
+    .order-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;background:var(--bg-surface);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:1rem}
+    .order-info-group{display:flex;gap:2rem;flex-wrap:wrap}
+    .order-meta{display:flex;flex-direction:column;gap:.25rem}
+    .meta-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dim);font-weight:600}
+    .meta-val{font-size:.95rem;font-weight:600;color:var(--text)}
+    .order-status{padding:.4rem 1rem;border-radius:100px;font-size:.85rem;font-weight:700;display:inline-flex;align-items:center;gap:.5rem}
+    .status-placed{background:rgba(59,130,246,.15);color:#3b82f6}
+    .status-processing{background:rgba(139,92,246,.15);color:#8b5cf6}
+    .status-shipped{background:rgba(245,158,11,.15);color:#f59e0b}
+    .status-delivered{background:rgba(16,185,129,.15);color:#10b981}
+    .order-items{padding:1.5rem}
+    .order-item{display:flex;gap:1.5rem;align-items:center;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+    .order-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+    .order-item img{width:80px;height:90px;object-fit:cover;border-radius:var(--radius-sm);background:var(--bg-surface)}
+    .order-item-details{flex:1}
+    .order-item-brand{font-size:.78rem;color:var(--primary-light);font-weight:600;text-transform:uppercase;margin-bottom:.15rem}
+    .order-item-name{font-weight:600;font-size:1rem;margin-bottom:.25rem}
+    .order-item-meta{color:var(--text-dim);font-size:.85rem}
+    .order-item-price{font-weight:700;font-size:1rem;margin-top:.5rem;color:var(--text)}
+    .order-actions{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-top:1px solid var(--border);background:var(--bg-surface);flex-wrap:wrap;gap:1rem}
+    .order-btn-group{display:flex;gap:1rem}
+  </style>
+</head>
+<body>
+<header class="site-header scrolled" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a>
+    <nav class="main-nav"><a href="shop.html" class="nav-link">Shop</a><a href="shop.html?c=mens-fashion" class="nav-link">Men</a><a href="shop.html?c=womens-fashion" class="nav-link">Women</a></nav>
+    <div class="header-actions">
+      <div class="user-dropdown-wrap" id="userDropdownWrap" style="display:none"><button class="action-btn" id="userMenuBtn"><i class="far fa-user"></i></button><div class="user-dropdown" id="userDropdown"><div class="user-dd-links" style="display:block"><a href="profile.html"><i class="far fa-user"></i> Profile</a><a href="orders.html" style="color:var(--text)"><i class="fas fa-box"></i> Orders</a><a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></div>
+      <button class="action-btn cart-action" id="cartBtn"><i class="fas fa-shopping-bag"></i><span class="badge-count" id="cartCount">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-header"><a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a><button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button></div><div class="mobile-nav-userinfo" id="mobileNavUserInfo"><p>Hello, <span id="mobileUserName">User</span>! <a href="profile.html">Account</a></p></div><nav class="mobile-nav-links"><a href="profile.html"><i class="far fa-user"></i> Profile</a><a href="orders.html"><i class="fas fa-box"></i> Orders</a><a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a><a href="shop.html"><i class="fas fa-store"></i> Shop</a></nav></div>
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3>Your Bag</h3><button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button></div><div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div><div id="cartItems"></div></div><div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-totals"><div class="total-row grand-total"><span>Total</span><span id="cartTotal">₹0</span></div></div><a href="checkout.html" class="btn-solid checkout-btn">Checkout</a></div></div>
+
+<div class="page-wrapper">
+  <div id="authAlert" style="display:none;text-align:center;padding:5rem 0">
+    <i class="fas fa-lock" style="font-size:3rem;color:var(--primary);margin-bottom:1.5rem"></i>
+    <h2>Please Login</h2>
+    <p style="color:var(--text-muted);margin-bottom:2rem">You need to be logged in to view your orders.</p>
+    <a href="index.html" class="btn-solid">Go Home</a>
+  </div>
+
+  <div id="ordersContent" style="display:none">
+    <h1 class="page-title">My Orders</h1>
+    <p class="page-sub">Track and manage your recent purchases</p>
+    
+    <div id="loading" style="text-align:center;padding:4rem 0">
+      <div class="spinner" style="width:40px;height:40px;border-width:3px;margin:auto"></div>
+    </div>
+    
+    <div id="ordersList"></div>
+  </div>
+</div>
+
+<footer class="site-footer"><div class="container"><div style="padding:2rem 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap"><a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a><p style="color:var(--text-dim);font-size:.82rem">© 2026 Wellsty India. All rights reserved.</p></div></div></footer>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/ui.js"></script>
+<script>
+async function loadOrders() {
+  const token = localStorage.getItem('wellsty_token');
+  if (!token) { document.getElementById('authAlert').style.display='block'; return; }
+  document.getElementById('ordersContent').style.display='block';
+  document.getElementById('userDropdownWrap').style.display='block';
+  
+  try {
+    const data = await api.getMyOrders();
+    document.getElementById('loading').style.display='none';
+    const list = document.getElementById('ordersList');
+    
+    if (!data.orders?.length) {
+      list.innerHTML = `<div style="text-align:center;padding:4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)"><i class="fas fa-box-open" style="font-size:3rem;color:var(--text-dim);margin-bottom:1rem"></i><h3>No orders yet</h3><p style="color:var(--text-muted);margin-bottom:1.5rem">Looks like you haven't made any purchases yet.</p><a href="shop.html" class="btn-solid">Start Shopping</a></div>`;
+      return;
+    }
+
+    const sortOrders = data.orders.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+    const statusMap = {
+      'placed': { l: 'Order Placed', c: 'status-placed', i: 'fa-check-circle' },
+      'processing': { l: 'Processing', c: 'status-processing', i: 'fa-cog fa-spin' },
+      'shipped': { l: 'Shipped', c: 'status-shipped', i: 'fa-truck' },
+      'delivered': { l: 'Delivered', c: 'status-delivered', i: 'fa-box-open' },
+      'cancelled': { l: 'Cancelled', c: 'status-shipped', i: 'fa-times-circle' } // using orange for cancelled as fallback
+    };
+
+    list.innerHTML = sortOrders.map(o => {
+      const st = statusMap[o.orderStatus] || statusMap['placed'];
+      const date = new Date(o.createdAt).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'});
+      const fp = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
+      
+      const itemsHtml = o.orderItems.map(i => `
+        <div class="order-item">
+          <img src="${i.image}" alt="${i.name}">
+          <div class="order-item-details">
+            <div class="order-item-name"><a href="product.html?id=${i.product}">${i.name}</a></div>
+            <div class="order-item-meta">Qty: ${i.qty} ${i.size?' • Size: '+i.size:''}</div>
+            <div class="order-item-price">${fp(i.price)}</div>
+          </div>
+        </div>
+      `).join('');
+
+      return `
+        <div class="order-card" id="order-${o._id}">
+          <div class="order-header">
+            <div class="order-info-group">
+              <div class="order-meta"><span class="meta-label">Order Placed</span><span class="meta-val">${date}</span></div>
+              <div class="order-meta"><span class="meta-label">Total</span><span class="meta-val">${fp(o.totalPrice)}</span></div>
+              <div class="order-meta"><span class="meta-label">Ship To</span><span class="meta-val" title="${o.shippingAddress.street}, ${o.shippingAddress.city}">${o.shippingAddress.name}</span></div>
+            </div>
+            <div class="order-meta" style="text-align:right">
+              <span class="meta-label">Order ID: #${o._id.slice(-8).toUpperCase()}</span>
+              <div style="margin-top:.4rem"><span class="order-status ${st.c}"><i class="fas ${st.i}"></i> ${st.l}</span></div>
+            </div>
+          </div>
+          <div class="order-items">${itemsHtml}</div>
+          <div class="order-actions">
+            <span style="font-size:.85rem;color:var(--text-dim)"><i class="fas fa- credit-card"></i> Payment via ${o.paymentMethod}</span>
+            <div class="order-btn-group">
+              <button class="btn-outline" onclick="location.href='shop.html'">Continue Shopping</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Highlight new order
+    const urlParams = new URLSearchParams(window.location.search);
+    const newId = urlParams.get('new');
+    if (newId) {
+      const el = document.getElementById(`order-${newId}`);
+      if (el) {
+        el.style.borderColor = 'var(--green)';
+        el.style.boxShadow = '0 0 20px rgba(16,185,129,0.2)';
+        el.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    }
+
+  } catch(e) {
+    document.getElementById('loading').innerHTML = `<p style="color:var(--accent)">Failed to load orders: ${e.message}</p>`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadOrders);
+</script>
+</body>
+</html>

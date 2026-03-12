@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details — Wellsty</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+      .pd-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;padding:3rem 0}
+      .pd-gallery{position:sticky;top:calc(var(--header-h) + 1rem);height:fit-content}
+      .pd-main-img{border-radius:var(--radius);overflow:hidden;height:540px;background:var(--bg-card);margin-bottom:1rem;position:relative;cursor:zoom-in}
+      .pd-main-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+      .pd-main-img:hover img{transform:scale(1.08)}
+      .pd-thumbs{display:flex;gap:.75rem;overflow-x:auto;scrollbar-width:none}
+      .pd-thumbs::-webkit-scrollbar{display:none}
+      .pd-thumb{width:80px;height:90px;border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;flex-shrink:0;transition:var(--transition);background:var(--bg-card)}
+      .pd-thumb.active,.pd-thumb:hover{border-color:var(--primary)}
+      .pd-thumb img{width:100%;height:100%;object-fit:cover}
+      .pd-info{padding-top:.5rem}
+      .pd-brand{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--primary-light);font-weight:700;margin-bottom:.5rem}
+      .pd-name{font-size:clamp(1.5rem,3vw,2rem);font-weight:900;margin-bottom:1rem}
+      .pd-rating-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+      .pd-rating-val{font-size:1.1rem;font-weight:700;color:#f59e0b}
+      .pd-reviews-link{font-size:.85rem;color:var(--primary);text-decoration:underline;cursor:pointer}
+      .pd-prices{display:flex;align-items:center;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap}
+      .pd-price{font-size:2rem;font-weight:800}
+      .pd-original{color:var(--text-dim);text-decoration:line-through;font-size:1.1rem}
+      .pd-disc{background:rgba(16,185,129,.15);color:var(--green);padding:.25rem .7rem;border-radius:100px;font-size:.82rem;font-weight:700}
+      .pd-offers{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:var(--radius-sm);padding:1rem 1.25rem;margin:1.25rem 0}
+      .pd-offers h4{font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-dim);margin-bottom:.75rem}
+      .offer-item{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text-muted);margin-bottom:.5rem}
+      .offer-item:last-child{margin-bottom:0}
+      .offer-item i{color:var(--green);font-size:.85rem;flex-shrink:0}
+      .pd-label{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:.65rem}
+      .size-guide-link{font-size:.78rem;color:var(--primary);cursor:pointer;text-decoration:underline;margin-left:.5rem;font-weight:500}
+      .pd-add-btn{width:100%;padding:1.1rem;background:var(--primary);color:#fff;border-radius:var(--radius-sm);font-size:1rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:.7rem;margin-bottom:.75rem;transition:var(--transition);border:2px solid var(--primary)}
+      .pd-add-btn:hover{background:transparent;color:var(--primary)}
+      .pd-wish-btn{width:100%;padding:1rem;background:transparent;color:var(--text-muted);border-radius:var(--radius-sm);font-size:.95rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:.7rem;border:1px solid var(--border);transition:var(--transition)}
+      .pd-wish-btn:hover{border-color:var(--accent);color:var(--accent)}
+      .pd-delivery{display:flex;gap:2rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);flex-wrap:wrap}
+      .pd-delivery-item{display:flex;align-items:center;gap:.6rem;font-size:.82rem;color:var(--text-muted)}
+      .pd-delivery-item i{color:var(--primary)}
+      .pd-accordion{border-top:1px solid var(--border);margin-top:2rem}
+      .pd-acc-item{border-bottom:1px solid var(--border)}
+      .pd-acc-header{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;cursor:pointer;font-weight:600;font-size:.95rem}
+      .pd-acc-header i{transition:var(--transition);color:var(--text-dim)}
+      .pd-acc-item.open .pd-acc-header i{transform:rotate(45deg)}
+      .pd-acc-body{display:none;padding:.25rem 0 1.25rem;color:var(--text-muted);font-size:.9rem;line-height:1.8}
+      .pd-acc-item.open .pd-acc-body{display:block}
+      .reviews-section{padding:4rem 0;border-top:1px solid var(--border)}
+      .review-summary{display:flex;gap:3rem;align-items:center;margin-bottom:3rem;flex-wrap:wrap}
+      .rating-big{text-align:center;flex-shrink:0}
+      .rating-big span{display:block;font-size:4rem;font-weight:900;font-family:'Playfair Display',serif;line-height:1;color:#f59e0b}
+      .rating-big small{color:var(--text-muted);font-size:.85rem}
+      .rating-bars{flex:1;min-width:200px}
+      .rating-bar-row{display:flex;align-items:center;gap.75rem;margin-bottom:.5rem;font-size:.82rem;color:var(--text-muted);gap:.75rem}
+      .rating-bar{flex:1;height:8px;background:var(--bg-surface);border-radius:4px;overflow:hidden}
+      .rating-bar-fill{height:100%;background:#f59e0b;border-radius:4px}
+      .review-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem}
+      .review-header{display:flex;align-items:center;justify-content:space-between;margin-bottom.75rem;margin-bottom:.75rem;flex-wrap:wrap;gap:.5rem}
+      .reviewer{display:flex;align-items:center;gap.75rem;gap:.75rem}
+      .reviewer img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+      .reviewer strong{font-size:.95rem}
+      .reviewer small{font-size:.75rem;color:var(--text-dim)}
+      .review-stars{color:#f59e0b;font-size:.85rem}
+      .review-title{font-weight:700;margin-bottom:.4rem;font-size:.95rem}
+      .review-text{color:var(--text-muted);font-size:.88rem;line-height:1.7}
+      .add-review-form{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:2rem}
+      .star-picker{display:flex;gap:.5rem;margin-bottom:1rem}
+      .star-btn{font-size:1.8rem;color:var(--border-bright);cursor:pointer;transition:var(--transition)}
+      .star-btn.active,.star-btn:hover{color:#f59e0b}
+      .related-section{padding:4rem 0;border-top:1px solid var(--border)}
+      @media(max-width:900px){.pd-layout{grid-template-columns:1fr;gap:2rem}.pd-gallery{position:static}}
+    </style>
+</head>
+<body>
+<div class="announcement-bar" id="announcementBar"><div class="announcement-track"><span>🚀 Free Delivery above ₹999</span><span class="sep">|</span><span>🔄 Easy 30-Day Returns</span><span class="sep">|</span><span>⭐ 100% Authentic</span><span class="sep">|</span><span>🚀 Free Delivery above ₹999</span><span class="sep">|</span><span>🔄 Easy 30-Day Returns</span></div></div>
+<header class="site-header scrolled" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a>
+    <nav class="main-nav"><a href="shop.html?c=mens-fashion" class="nav-link">Men</a><a href="shop.html?c=womens-fashion" class="nav-link">Women</a><a href="shop.html?c=footwear" class="nav-link">Footwear</a><a href="shop.html?c=accessories" class="nav-link">Accessories</a><a href="shop.html?c=beauty" class="nav-link">Beauty</a><a href="shop.html?c=electronics" class="nav-link">Electronics</a><a href="shop.html?sort=discount" class="nav-link sale-link">Sale 🔥</a></nav>
+    <div class="header-actions">
+      <div class="search-box" id="searchBox"><button class="action-btn" id="searchToggle"><i class="fas fa-search"></i></button><div class="search-dropdown" id="searchDropdown"><div class="search-input-wrap"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Search..." autocomplete="off"><button class="search-close-btn" id="searchClose"><i class="fas fa-times"></i></button></div><div class="search-suggestions" id="searchSuggestions"></div></div></div>
+      <a href="wishlist.html" class="action-btn"><i class="far fa-heart"></i><span class="badge-count" id="wishlistCount" style="display:none">0</span></a>
+      <div class="user-dropdown-wrap" id="userDropdownWrap"><button class="action-btn" id="userMenuBtn"><i class="far fa-user"></i></button><div class="user-dropdown" id="userDropdown"><div class="user-dd-header" id="userDdHeader"><p class="dd-welcome">Hello, Guest 👋</p><p class="dd-sub">Login for best experience</p></div><div class="user-dd-auth" id="userDdAuth"><button class="btn-solid" onclick="openAuthModal('login')">Login</button><button class="btn-outline" onclick="openAuthModal('register')">Register</button></div><div class="user-dd-links" id="userDdLinks" style="display:none"><a href="profile.html"><i class="far fa-user"></i> My Profile</a><a href="orders.html"><i class="fas fa-box"></i> My Orders</a><a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></div>
+      <button class="action-btn cart-action" id="cartBtn"><i class="fas fa-shopping-bag"></i><span class="badge-count" id="cartCount">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-header"><a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a><button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button></div><div class="mobile-nav-user" id="mobileNavUser"><div class="mobile-nav-auth" id="mobileNavAuth"><p>Hello, Guest! <a href="#" onclick="openAuthModal('login')">Login</a></p></div><div class="mobile-nav-userinfo" id="mobileNavUserInfo" style="display:none"><p>Hello, <span id="mobileUserName">User</span>! <a href="profile.html">Account</a></p></div></div><nav class="mobile-nav-links"><a href="shop.html?c=mens-fashion"><i class="fas fa-tshirt"></i> Men</a><a href="shop.html?c=womens-fashion"><i class="fas fa-vest-patches"></i> Women</a><a href="shop.html?c=footwear"><i class="fas fa-shoe-prints"></i> Footwear</a><a href="shop.html?c=accessories"><i class="fas fa-gem"></i> Accessories</a><a href="shop.html?sort=discount" class="sale-link"><i class="fas fa-fire"></i> Sale</a></nav></div>
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3>Your Bag <span id="cartItemsLabel">(0 items)</span></h3><button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button></div><div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p><a href="shop.html" class="btn-solid">Shop Now</a></div><div id="cartItems"></div></div><div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-coupon"><input type="text" id="couponInput" placeholder="Coupon code"><button id="applyCouponBtn">Apply</button></div><div class="cart-totals"><div class="total-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div><div class="total-row discount-row" id="discountRow" style="display:none"><span>Discount</span><span id="cartDiscount" class="green">-₹0</span></div><div class="total-row"><span>Shipping</span><span id="cartShipping">₹99</span></div><div class="total-row"><span>GST (5%)</span><span id="cartTax">₹0</span></div><div class="total-row grand-total"><span>Total</span><span id="cartTotal">₹0</span></div></div><a href="checkout.html" class="btn-solid checkout-btn">Checkout <i class="fas fa-arrow-right"></i></a><p class="secure-note"><i class="fas fa-lock"></i> Secure Checkout</p></div></div>
+<div class="modal-overlay" id="authOverlay"></div>
+<div class="auth-modal" id="authModal"><button class="modal-close" id="authClose"><i class="fas fa-times"></i></button><div class="auth-tabs"><button class="auth-tab active" data-tab="login" id="loginTab">Login</button><button class="auth-tab" data-tab="register" id="registerTab">Register</button></div><div class="auth-form active" id="loginForm"><div class="auth-header"><h2>Welcome Back!</h2><p>Login to your Wellsty account</p></div><div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Email"></div><div class="form-group"><label>Password</label><div class="password-wrap"><input type="password" id="loginPassword" placeholder="Password"><button class="toggle-pass" onclick="togglePassword('loginPassword')"><i class="fas fa-eye"></i></button></div></div><div class="auth-error" id="loginError"></div><button class="btn-solid full-btn" id="loginSubmitBtn" onclick="handleLogin()">Login</button><p class="auth-switch">New? <a href="#" onclick="switchTab('register')">Register</a></p></div><div class="auth-form" id="registerForm"><div class="auth-header"><h2>Create Account</h2></div><div class="form-group"><label>Name</label><input type="text" id="regName" placeholder="Full Name"></div><div class="form-group"><label>Email</label><input type="email" id="regEmail" placeholder="Email"></div><div class="form-group"><label>Password</label><div class="password-wrap"><input type="password" id="regPassword" placeholder="Min 6 chars"><button class="toggle-pass" onclick="togglePassword('regPassword')"><i class="fas fa-eye"></i></button></div></div><div class="auth-error" id="registerError"></div><button class="btn-solid full-btn" id="registerSubmitBtn" onclick="handleRegister()">Create Account</button><p class="auth-switch">Have account? <a href="#" onclick="switchTab('login')">Login</a></p></div></div>
+
+<div style="margin-top:calc(38px + var(--header-h))">
+  <!-- Breadcrumb -->
+  <div class="container" style="padding-top:1.5rem">
+    <div style="font-size:.82rem;color:var(--text-dim);display:flex;gap:.5rem;align-items:center">
+      <a href="index.html" style="color:var(--text-dim)">Home</a><i class="fas fa-chevron-right" style="font-size:.6rem"></i>
+      <a href="shop.html" style="color:var(--text-dim)">Shop</a><i class="fas fa-chevron-right" style="font-size:.6rem"></i>
+      <span id="pdBreadcrumb" style="color:var(--text-muted)">Product</span>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="container" id="pdLoading" style="padding:5rem 0;text-align:center;color:var(--text-muted)">
+    <div class="spinner" style="width:48px;height:48px;border-width:3px;margin:0 auto 1rem"></div>
+    <p>Loading product...</p>
+  </div>
+
+  <!-- Product Layout -->
+  <div class="container" id="pdContent" style="display:none">
+    <div class="pd-layout">
+      <!-- Gallery -->
+      <div class="pd-gallery">
+        <div class="pd-main-img"><img id="pdMainImg" src="" alt="Product Image"></div>
+        <div class="pd-thumbs" id="pdThumbs"></div>
+      </div>
+      <!-- Info -->
+      <div class="pd-info">
+        <div class="pd-brand" id="pdBrand"></div>
+        <h1 class="pd-name" id="pdName"></h1>
+        <div class="pd-rating-row">
+          <span class="pd-rating-val" id="pdRatingVal"></span>
+          <span class="stars" id="pdStars"></span>
+          <span class="pd-reviews-link" onclick="document.getElementById('reviewsSection').scrollIntoView({behavior:'smooth'})" id="pdRevCount"></span>
+        </div>
+        <div class="pd-prices">
+          <span class="pd-price" id="pdPrice"></span>
+          <span class="pd-original" id="pdOriginal" style="display:none"></span>
+          <span class="pd-disc" id="pdDisc" style="display:none"></span>
+        </div>
+        <div class="pd-offers">
+          <h4>Wellsty Offers</h4>
+          <div class="offer-item"><i class="fas fa-tag"></i> Use code <strong>WELLSTY10</strong> for extra 10% off</div>
+          <div class="offer-item"><i class="fas fa-credit-card"></i> No cost EMI on orders above ₹3,000</div>
+          <div class="offer-item"><i class="fas fa-redo"></i> 30-day easy returns & exchange</div>
+        </div>
+        <div id="sizesSection" style="display:none;margin-bottom:1.5rem">
+          <div style="display:flex;align-items:center;margin-bottom:.65rem">
+            <p class="pd-label" style="margin:0">Select Size</p>
+            <span class="size-guide-link">Size Guide</span>
+          </div>
+          <div class="size-options" id="pdSizes"></div>
+        </div>
+        <button class="pd-add-btn" id="pdAddBtn" onclick="handleAddToCart()"><i class="fas fa-shopping-bag"></i> Add to Bag</button>
+        <button class="pd-wish-btn" id="pdWishBtn" onclick="handleWishlistToggle(currentProductId, this)"><i class="far fa-heart"></i> Add to Wishlist</button>
+        <div class="pd-delivery">
+          <div class="pd-delivery-item"><i class="fas fa-shipping-fast"></i><span>Free delivery on orders above ₹999</span></div>
+          <div class="pd-delivery-item"><i class="fas fa-redo"></i><span>30-day returns</span></div>
+          <div class="pd-delivery-item"><i class="fas fa-shield-alt"></i><span>100% authentic</span></div>
+        </div>
+        <!-- Accordion -->
+        <div class="pd-accordion">
+          <div class="pd-acc-item open">
+            <div class="pd-acc-header" onclick="toggleAcc(this)"><span>Description</span><i class="fas fa-plus"></i></div>
+            <div class="pd-acc-body" id="pdDesc"></div>
+          </div>
+          <div class="pd-acc-item">
+            <div class="pd-acc-header" onclick="toggleAcc(this)"><span>Material & Care</span><i class="fas fa-plus"></i></div>
+            <div class="pd-acc-body" id="pdMaterial"></div>
+          </div>
+          <div class="pd-acc-item">
+            <div class="pd-acc-header" onclick="toggleAcc(this)"><span>Shipping & Returns</span><i class="fas fa-plus"></i></div>
+            <div class="pd-acc-body">
+              <p>• Standard delivery: 5-7 business days</p>
+              <p>• Express delivery: 2-3 business days (₹99)</p>
+              <p>• Free delivery on orders above ₹999</p>
+              <p>• 30-day hassle-free returns & exchanges</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="reviews-section" id="reviewsSection">
+      <h2 class="section-title" style="margin-bottom:2rem">Customer Reviews</h2>
+      <div class="review-summary">
+        <div class="rating-big"><span id="reviewBigRating">0</span><div class="stars" style="font-size:1.2rem" id="reviewBigStars"></div><small id="reviewBigCount">0 reviews</small></div>
+        <div class="rating-bars" id="ratingBars"></div>
+      </div>
+      <div id="reviewsList"></div>
+      <div class="add-review-form" id="addReviewForm">
+        <h3 style="font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1.25rem">Write a Review</h3>
+        <div class="star-picker" id="starPicker">
+          <span class="star-btn" data-val="1" onclick="setRating(1)">★</span>
+          <span class="star-btn" data-val="2" onclick="setRating(2)">★</span>
+          <span class="star-btn" data-val="3" onclick="setRating(3)">★</span>
+          <span class="star-btn" data-val="4" onclick="setRating(4)">★</span>
+          <span class="star-btn" data-val="5" onclick="setRating(5)">★</span>
+        </div>
+        <div class="form-group"><label>Review Title</label><input type="text" id="reviewTitle" placeholder="Summarize your review"></div>
+        <div class="form-group"><label>Review</label><textarea id="reviewComment" rows="4" style="width:100%;padding:.85rem 1rem;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.95rem;resize:vertical" placeholder="Tell others about your experience"></textarea></div>
+        <button class="btn-solid" onclick="submitReview()">Submit Review</button>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="related-section">
+      <div class="section-head"><h2 class="section-title">You May Also Like</h2></div>
+      <div class="products-grid" id="relatedGrid"><div class="product-skeleton"></div><div class="product-skeleton"></div><div class="product-skeleton"></div><div class="product-skeleton"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<div class="modal-overlay" id="quickViewOverlay"></div>
+<div class="quick-view-modal" id="quickViewModal"><button class="modal-close" onclick="closeQuickView()"><i class="fas fa-times"></i></button><div id="quickViewContent"></div></div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/ui.js"></script>
+<script>
+let currentProduct = null;
+let currentProductId = null;
+let selectedSize = '';
+let selectedRating = 0;
+
+async function loadProduct() {
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) { location.href = 'shop.html'; return; }
+  currentProductId = id;
+  try {
+    const data = await api.getProduct(id);
+    const p = data.product;
+    currentProduct = p;
+    document.title = p.name + ' — Wellsty';
+    document.getElementById('pdBreadcrumb').textContent = p.name;
+    document.getElementById('pdBrand').textContent = p.brand;
+    document.getElementById('pdName').textContent = p.name;
+    document.getElementById('pdRatingVal').textContent = p.rating || 0;
+    document.getElementById('pdStars').textContent = '⭐'.repeat(Math.round(p.rating||0));
+    document.getElementById('pdRevCount').textContent = `(${p.numReviews||0} reviews)`;
+    document.getElementById('pdPrice').textContent = formatPrice(p.price);
+    if (p.originalPrice) { document.getElementById('pdOriginal').textContent = formatPrice(p.originalPrice); document.getElementById('pdOriginal').style.display='inline'; }
+    if (p.discount) { document.getElementById('pdDisc').textContent = p.discount+'% off'; document.getElementById('pdDisc').style.display='inline-flex'; }
+    document.getElementById('pdDesc').textContent = p.description;
+    document.getElementById('pdMaterial').innerHTML = `<p>${p.material||'Premium quality materials'}</p><p style="margin-top:.75rem">${p.careInstructions||'See product label for care instructions.'}</p>`;
+    // Gallery
+    const mainImg = document.getElementById('pdMainImg');
+    if (p.images?.length) { mainImg.src = p.images[0]; mainImg.alt = p.name; }
+    const thumbsEl = document.getElementById('pdThumbs');
+    if (p.images?.length > 1) {
+      thumbsEl.innerHTML = p.images.map((img,i) => `<div class="pd-thumb ${i===0?'active':''}" onclick="switchImg('${img}',this)"><img src="${img}" alt="img ${i+1}" loading="lazy"></div>`).join('');
+    }
+    // Sizes
+    if (p.sizes?.length) {
+      document.getElementById('sizesSection').style.display='block';
+      document.getElementById('pdSizes').innerHTML = p.sizes.map(s => `<button class="size-opt" onclick="selectSize('${s}',this)">${s}</button>`).join('');
+    }
+    // Reviews
+    renderReviews(p.reviews||[], p.rating, p.numReviews);
+    // Load related
+    loadRelated(p.category, p._id);
+    document.getElementById('pdLoading').style.display='none';
+    document.getElementById('pdContent').style.display='block';
+  } catch { document.getElementById('pdLoading').innerHTML = '<p style="color:var(--accent)">Failed to load product. Make sure the backend is running.</p>'; }
+}
+
+function switchImg(src, el) {
+  document.getElementById('pdMainImg').src = src;
+  document.querySelectorAll('.pd-thumb').forEach(t => t.classList.remove('active'));
+  el?.classList.add('active');
+}
+
+function selectSize(size, btn) {
+  selectedSize = size;
+  document.querySelectorAll('.size-opt').forEach(b => b.classList.remove('active'));
+  btn?.classList.add('active');
+}
+
+async function handleAddToCart() {
+  if (!currentProduct) return;
+  if (currentProduct.sizes?.length && !selectedSize) { showToast('Please select a size', 'error'); return; }
+  const btn = document.getElementById('pdAddBtn');
+  btn.innerHTML = '<span class="spinner"></span> Adding...'; btn.disabled = true;
+  await addToCart(currentProduct, 1, selectedSize);
+  btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Bag'; btn.disabled = false;
+}
+
+function toggleAcc(header) {
+  const item = header.parentElement;
+  item.classList.toggle('open');
+}
+
+function setRating(val) {
+  selectedRating = val;
+  document.querySelectorAll('.star-btn').forEach((b,i) => b.classList.toggle('active', i < val));
+}
+
+async function submitReview() {
+  const token = localStorage.getItem('wellsty_token');
+  if (!token) { showToast('Please login to write a review', 'error'); openAuthModal('login'); return; }
+  const title = document.getElementById('reviewTitle')?.value?.trim();
+  const comment = document.getElementById('reviewComment')?.value?.trim();
+  if (!selectedRating) { showToast('Please select a rating', 'error'); return; }
+  if (!title || !comment) { showToast('Please fill all review fields', 'error'); return; }
+  try {
+    await api.addReview(currentProductId, { rating: selectedRating, title, comment });
+    showToast('Review submitted! Thank you 🙏', 'success');
+    setTimeout(() => loadProduct(), 500);
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+function renderReviews(reviews, avgRating, numReviews) {
+  document.getElementById('reviewBigRating').textContent = avgRating || 0;
+  document.getElementById('reviewBigStars').textContent = '⭐'.repeat(Math.round(avgRating||0));
+  document.getElementById('reviewBigCount').textContent = `${numReviews||0} verified reviews`;
+  // Rating bars
+  const bars = [5,4,3,2,1];
+  const barHtml = bars.map(star => {
+    const count = reviews.filter(r=>Math.round(r.rating)===star).length;
+    const pct = reviews.length ? Math.round(count/reviews.length*100) : 0;
+    return `<div class="rating-bar-row"><span style="width:28px">${star}★</span><div class="rating-bar"><div class="rating-bar-fill" style="width:${pct}%"></div></div><span style="width:32px;text-align:right">${pct}%</span></div>`;
+  }).join('');
+  document.getElementById('ratingBars').innerHTML = barHtml;
+  // Reviews list
+  const list = document.getElementById('reviewsList');
+  if (!reviews.length) { list.innerHTML = '<p style="color:var(--text-muted);margin-bottom:2rem">No reviews yet. Be the first to review!</p>'; return; }
+  list.innerHTML = reviews.slice(0,5).map(r => `
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer"><img src="https://i.pravatar.cc/40?u=${r.user}" alt="${r.name}"><div><strong>${r.name}</strong><br><small>${new Date(r.createdAt).toLocaleDateString('en-IN', {year:'numeric',month:'short',day:'numeric'})}</small></div></div>
+        <div class="review-stars">${'⭐'.repeat(Math.round(r.rating))}</div>
+      </div>
+      <div class="review-title">${r.title}</div>
+      <div class="review-text">${r.comment}</div>
+    </div>
+  `).join('');
+}
+
+async function loadRelated(category, excludeId) {
+  try {
+    const data = await api.getProducts({ category, limit: 4 });
+    const products = data.products.filter(p => p._id !== excludeId).slice(0,4);
+    const grid = document.getElementById('relatedGrid');
+    if (grid) grid.innerHTML = products.length ? products.map(p => buildProductCard(p)).join('') : '<p style="color:var(--text-muted)">No related products</p>';
+  } catch { document.getElementById('relatedGrid').innerHTML = ''; }
+}
+
+window.handleWishlistToggle = handleWishlistToggle;
+document.addEventListener('DOMContentLoaded', loadProduct);
+</script>
+</body>
+</html>

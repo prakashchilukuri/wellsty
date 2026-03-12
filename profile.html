@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — Wellsty</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .page-wrapper{max-width:1100px;margin:0 auto;padding:0 1.5rem;padding-top:calc(38px + var(--header-h) + 2rem);padding-bottom:5rem;min-height:80vh}
+    .profile-grid{display:grid;grid-template-columns:250px 1fr;gap:3rem;align-items:start}
+    .profile-nav{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+    .profile-user{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+    .profile-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700}
+    .profile-nav-links{display:flex;flex-direction:column;gap:.5rem}
+    .p-link{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-radius:var(--radius-sm);color:var(--text-muted);font-weight:500;transition:var(--transition);cursor:pointer}
+    .p-link:hover,.p-link.active{background:rgba(124,58,237,.1);color:var(--primary)}
+    .p-link i{width:20px}
+    .profile-content{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem}
+    .tab-pane{display:none}
+    .tab-pane.active{display:block}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+    .address-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem;margin-bottom:1rem;position:relative}
+    .address-card h4{font-weight:600;margin-bottom:.5rem;font-family:'Inter',sans-serif;font-size:.95rem}
+    .address-card p{color:var(--text-muted);font-size:.85rem;line-height:1.6;margin-bottom:.5rem}
+    .address-card .del-btn{position:absolute;top:1.25rem;right:1.25rem;color:var(--text-dim);cursor:pointer;transition:var(--transition)}
+    .address-card .del-btn:hover{color:var(--accent)}
+    @media(max-width:768px){.profile-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header class="site-header scrolled" id="siteHeader"><div class="header-inner"><a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a><nav class="main-nav"><a href="shop.html" class="nav-link">Shop</a></nav><div class="header-actions"><div class="user-dropdown-wrap" id="userDropdownWrap" style="display:none"><button class="action-btn" id="userMenuBtn"><i class="far fa-user"></i></button><div class="user-dropdown" id="userDropdown"><div class="user-dd-links" style="display:block"><a href="profile.html"><i class="far fa-user"></i> Profile</a><a href="orders.html"><i class="fas fa-box"></i> Orders</a><a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></div><button class="action-btn cart-action" id="cartBtn"><i class="fas fa-shopping-bag"></i><span class="badge-count" id="cartCount">0</span></button></div></div></header>
+
+<div class="page-wrapper">
+  <div id="authAlert" style="display:none;text-align:center;padding:5rem 0"><i class="fas fa-user-lock" style="font-size:3rem;color:var(--primary);margin-bottom:1.5rem"></i><h2>Authentication Required</h2><p style="color:var(--text-muted);margin-bottom:2rem">Please login to manage your profile.</p><a href="index.html" class="btn-solid">Go Home</a></div>
+  
+  <div id="profileContainer" style="display:none">
+    <div class="profile-grid">
+      <div class="profile-nav">
+        <div class="profile-user">
+          <div class="profile-avatar" id="avT">U</div>
+          <div><strong id="avN">User</strong><div style="font-size:.75rem;color:var(--text-dim)" id="avE">user@wellsty.com</div></div>
+        </div>
+        <div class="profile-nav-links">
+          <div class="p-link active" onclick="switchP('info', this)"><i class="far fa-id-card"></i> Personal Info</div>
+          <div class="p-link" onclick="switchP('pass', this)"><i class="fas fa-lock"></i> Security</div>
+          <div class="p-link" onclick="switchP('addr', this)"><i class="fas fa-map-marker-alt"></i> Addresses</div>
+          <div class="p-link" onclick="location.href='orders.html'"><i class="fas fa-box"></i> Orders</div>
+          <div class="p-link" onclick="location.href='wishlist.html'"><i class="far fa-heart"></i> Wishlist</div>
+          <div class="p-link" id="adminLink" style="display:none" onclick="location.href='admin.html'"><i class="fas fa-shield-alt"></i> Admin Panel</div>
+        </div>
+      </div>
+      
+      <div class="profile-content">
+        <!-- Personal Info -->
+        <div class="tab-pane active" id="tab-info">
+          <h2 style="font-size:1.5rem;margin-bottom:2rem">Personal Information</h2>
+          <div class="form-row">
+            <div class="form-group"><label>Full Name</label><input type="text" id="profName"></div>
+            <div class="form-group"><label>Email Address</label><input type="email" id="profEmail" readonly style="opacity:0.6;cursor:not-allowed"></div>
+          </div>
+          <button class="btn-solid" onclick="updateProfile()" id="profBtn">Save Changes</button>
+        </div>
+        
+        <!-- Password -->
+        <div class="tab-pane" id="tab-pass">
+          <h2 style="font-size:1.5rem;margin-bottom:2rem">Change Password</h2>
+          <div class="form-group"><label>Current Password</label><input type="password" id="oldPass"></div>
+          <div class="form-group"><label>New Password</label><input type="password" id="newPass"></div>
+          <button class="btn-solid" onclick="updateProfile()" id="passBtn">Update Password</button>
+        </div>
+        
+        <!-- Addresses -->
+        <div class="tab-pane" id="tab-addr">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem">
+            <h2 style="font-size:1.5rem">Saved Addresses</h2>
+            <button class="btn-outline" onclick="document.getElementById('addAddrForm').style.display='block'"><i class="fas fa-plus"></i> Add New</button>
+          </div>
+          
+          <div id="addAddrForm" style="display:none;background:var(--bg-surface);padding:1.5rem;border-radius:var(--radius-sm);margin-bottom:2rem;border:1px solid var(--border)">
+            <h4 style="margin-bottom:1rem">New Address</h4>
+            <div class="form-row"><div class="form-group"><label>Name</label><input type="text" id="aName"></div><div class="form-group"><label>Phone</label><input type="text" id="aPhone"></div></div>
+            <div class="form-group"><label>Street Address</label><input type="text" id="aStreet"></div>
+            <div class="form-row"><div class="form-group"><label>City</label><input type="text" id="aCity"></div><div class="form-group"><label>State</label><input type="text" id="aState"></div></div>
+            <div class="form-group" style="max-width:200px"><label>Pincode</label><input type="text" id="aPin"></div>
+            <div style="display:flex;gap:1rem"><button class="btn-solid" onclick="saveAddress()">Save</button><button class="btn-ghost" onclick="document.getElementById('addAddrForm').style.display='none'">Cancel</button></div>
+          </div>
+          
+          <div id="addrList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast-container" id="toastContainer"></div>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/ui.js"></script>
+<script>
+let userData = null;
+
+async function loadProfile() {
+  const token = localStorage.getItem('wellsty_token');
+  if (!token) { document.getElementById('authAlert').style.display='block'; return; }
+  
+  try {
+    const data = await api.getProfile();
+    userData = data;
+    document.getElementById('profileContainer').style.display='block';
+    document.getElementById('userDropdownWrap').style.display='block';
+    
+    // Sidebar
+    document.getElementById('avT').textContent = userData.name.charAt(0).toUpperCase();
+    document.getElementById('avN').textContent = userData.name;
+    document.getElementById('avE').textContent = userData.email;
+    if (userData.role === 'admin') document.getElementById('adminLink').style.display = 'flex';
+    
+    // Forms
+    document.getElementById('profName').value = userData.name;
+    document.getElementById('profEmail').value = userData.email;
+    
+    renderAddresses();
+  } catch(e) {
+    document.getElementById('authAlert').style.display='block';
+    document.getElementById('authAlert').innerHTML = `<p style="color:red">${e.message}</p>`;
+  }
+}
+
+function switchP(tab, btn) {
+  document.querySelectorAll('.p-link').forEach(l=>l.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+
+async function updateProfile() {
+  const name = document.getElementById('profName').value.trim();
+  const oldPassword = document.getElementById('oldPass').value;
+  const password = document.getElementById('newPass').value;
+  
+  const payload = { name };
+  if (password) {
+    if(!oldPassword) { showToast('Enter current password', 'error'); return; }
+    if(password.length<6) { showToast('New password too short', 'error'); return; }
+    payload.oldPassword = oldPassword;
+    payload.password = password;
+  }
+  
+  try {
+    const data = await api.updateProfile(payload);
+    userData = data;
+    showToast('Profile updated!', 'success');
+    document.getElementById('avN').textContent = data.name;
+    document.getElementById('oldPass').value='';
+    document.getElementById('newPass').value='';
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+function renderAddresses() {
+  const list = document.getElementById('addrList');
+  if (!userData.addresses?.length) { list.innerHTML='<p style="color:var(--text-muted)">No saved addresses.</p>'; return; }
+  list.innerHTML = userData.addresses.map((a,i) => `
+    <div class="address-card">
+      <h4>${a.name} • ${a.phone}</h4>
+      <p>${a.street}<br>${a.city}, ${a.state} - ${a.pincode}</p>
+      <i class="fas fa-trash del-btn" onclick="delAddress('${a._id}')" title="Delete"></i>
+    </div>
+  `).join('');
+}
+
+async function saveAddress() {
+  const el = (id) => document.getElementById(id).value.trim();
+  const addr = { name:el('aName'), phone:el('aPhone'), street:el('aStreet'), city:el('aCity'), state:el('aState'), pincode:el('aPin') };
+  if(!addr.name||!addr.phone||!addr.street||!addr.city||!addr.state||!addr.pincode) { showToast('Fill all fields','error'); return; }
+  
+  try {
+    const data = await api.addAddress(addr);
+    userData.addresses = data;
+    renderAddresses();
+    showToast('Address added!', 'success');
+    document.getElementById('addAddrForm').style.display='none';
+    ['aName','aPhone','aStreet','aCity','aState','aPin'].forEach(id=>document.getElementById(id).value='');
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function delAddress(id) {
+  try {
+    const data = await api.deleteAddress(id);
+    userData.addresses = data;
+    renderAddresses();
+    showToast('Address deleted', 'info');
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+document.addEventListener('DOMContentLoaded', loadProfile);
+</script>
+</body>
+</html>

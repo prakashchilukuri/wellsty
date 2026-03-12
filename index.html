@@ -3,163 +3,754 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wellsty - Redifining indian streetwear </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css">
-    
+    <title>Wellsty — India's Premium Fashion Destination</title>
+    <meta name="description" content="Shop the latest trends in fashion, footwear, accessories, beauty and electronics at Wellsty. Premium brands, unbeatable prices, free delivery on orders above ₹999.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <header>
-        <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#categories">Shop</a>
-            <a href="#features">About</a>
-        </nav>
-        <div class="logo-container">
-           
-            <div class="brand-name">Wellsty</div>
-        </div>
-        <div class="header-icons">
-            <div class="search-wrapper" id="searchWrapper">
-                <i class="fas fa-search search-trigger" id="searchTrigger"></i>
-                <div class="search-expand" id="searchExpand">
-                    <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
-                    <i class="fas fa-times search-close" id="searchClose"></i>
+
+<!-- ═══════════════ TOP ANNOUNCEMENT BAR ═══════════════ -->
+<div class="announcement-bar" id="announcementBar">
+    <div class="announcement-track">
+        <span>🚀 Free Delivery on orders above ₹999</span>
+        <span class="sep">|</span>
+        <span>💳 Extra 10% off on first order — Use code: <strong>WELLSTY10</strong></span>
+        <span class="sep">|</span>
+        <span>🔄 Easy 30-Day Returns</span>
+        <span class="sep">|</span>
+        <span>⭐ 100% Authentic Products</span>
+        <span class="sep">|</span>
+        <span>🚀 Free Delivery on orders above ₹999</span>
+        <span class="sep">|</span>
+        <span>💳 Extra 10% off on first order — Use code: <strong>WELLSTY10</strong></span>
+        <span class="sep">|</span>
+        <span>🔄 Easy 30-Day Returns</span>
+    </div>
+</div>
+
+<!-- ═══════════════ HEADER / NAVBAR ═══════════════ -->
+<header class="site-header" id="siteHeader">
+    <div class="header-inner">
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo">
+            W<span class="logo-e"><span></span></span>LLSTY
+        </a>
+
+        <!-- Navigation -->
+        <nav class="main-nav" id="mainNav">
+            <div class="nav-item has-mega">
+                <a href="shop.html?c=mens-fashion" class="nav-link">Men <i class="fas fa-chevron-down nav-arrow"></i></a>
+                <div class="mega-menu">
+                    <div class="mega-inner">
+                        <div class="mega-col">
+                            <h4>Clothing</h4>
+                            <ul>
+                                <li><a href="shop.html?c=mens-fashion&sub=T-Shirts">T-Shirts</a></li>
+                                <li><a href="shop.html?c=mens-fashion&sub=Shirts">Shirts</a></li>
+                                <li><a href="shop.html?c=mens-fashion&sub=Hoodies">Hoodies & Sweatshirts</a></li>
+                                <li><a href="shop.html?c=mens-fashion&sub=Jackets">Jackets & Coats</a></li>
+                                <li><a href="shop.html?c=mens-fashion&sub=Trousers">Trousers & Chinos</a></li>
+                                <li><a href="shop.html?c=mens-fashion&sub=Activewear">Activewear</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Footwear</h4>
+                            <ul>
+                                <li><a href="shop.html?c=footwear&sub=Sneakers">Sneakers</a></li>
+                                <li><a href="shop.html?c=footwear&sub=Boots">Boots</a></li>
+                                <li><a href="shop.html?c=footwear&sub=Formal">Formal Shoes</a></li>
+                                <li><a href="shop.html?c=footwear&sub=Casual">Casual Shoes</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col mega-featured">
+                            <div class="mega-banner">
+                                <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&auto=format&fit=crop" alt="Men's New Arrivals">
+                                <div class="mega-banner-text">
+                                    <span>New Arrivals</span>
+                                    <a href="shop.html?c=mens-fashion&new=true" class="mega-cta">Shop Now →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <a href="#" class="icon-btn" id="userBtn"><i class="far fa-user"></i></a>
-            
-            <a href="#" class="icon-btn" id="cartBtn">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount">0</span>
+            <div class="nav-item has-mega">
+                <a href="shop.html?c=womens-fashion" class="nav-link">Women <i class="fas fa-chevron-down nav-arrow"></i></a>
+                <div class="mega-menu">
+                    <div class="mega-inner">
+                        <div class="mega-col">
+                            <h4>Clothing</h4>
+                            <ul>
+                                <li><a href="shop.html?c=womens-fashion&sub=Dresses">Dresses</a></li>
+                                <li><a href="shop.html?c=womens-fashion&sub=Tops">Tops & Blouses</a></li>
+                                <li><a href="shop.html?c=womens-fashion&sub=Skirts">Skirts</a></li>
+                                <li><a href="shop.html?c=womens-fashion&sub=Trousers">Trousers</a></li>
+                                <li><a href="shop.html?c=womens-fashion&sub=Blazers">Blazers & Jackets</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Best Sellers</h4>
+                            <ul>
+                                <li><a href="shop.html?c=womens-fashion&sort=rating">Top Rated</a></li>
+                                <li><a href="shop.html?c=womens-fashion&trending=true">Trending Now</a></li>
+                                <li><a href="shop.html?c=womens-fashion&new=true">New Arrivals</a></li>
+                                <li><a href="shop.html?c=womens-fashion&sort=discount">Sale Items</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col mega-featured">
+                            <div class="mega-banner">
+                                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&auto=format&fit=crop" alt="Women's Collection">
+                                <div class="mega-banner-text">
+                                    <span>Summer Edit</span>
+                                    <a href="shop.html?c=womens-fashion" class="mega-cta">Explore →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="shop.html?c=footwear" class="nav-link">Footwear</a>
+            <a href="shop.html?c=accessories" class="nav-link">Accessories</a>
+            <a href="shop.html?c=beauty" class="nav-link">Beauty</a>
+            <a href="shop.html?c=electronics" class="nav-link">Electronics</a>
+            <a href="shop.html?sort=discount" class="nav-link sale-link">Sale 🔥</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+            <!-- Search -->
+            <div class="search-box" id="searchBox">
+                <button class="action-btn" id="searchToggle" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+                <div class="search-dropdown" id="searchDropdown">
+                    <div class="search-input-wrap">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search for products, brands, categories..." autocomplete="off">
+                        <button class="search-close-btn" id="searchClose"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="search-suggestions" id="searchSuggestions">
+                        <div class="suggest-group">
+                            <p class="suggest-label">Trending Searches</p>
+                            <div class="suggest-tags">
+                                <a href="shop.html?search=hoodie" class="suggest-tag">Hoodies</a>
+                                <a href="shop.html?search=sneakers" class="suggest-tag">Sneakers</a>
+                                <a href="shop.html?search=watch" class="suggest-tag">Watches</a>
+                                <a href="shop.html?search=dress" class="suggest-tag">Dresses</a>
+                                <a href="shop.html?search=sunglasses" class="suggest-tag">Sunglasses</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist -->
+            <a href="wishlist.html" class="action-btn" aria-label="Wishlist">
+                <i class="far fa-heart"></i>
+                <span class="badge-count" id="wishlistCount" style="display:none">0</span>
+            </a>
+
+            <!-- User Account -->
+            <div class="user-dropdown-wrap" id="userDropdownWrap">
+                <button class="action-btn" id="userMenuBtn" aria-label="Account">
+                    <i class="far fa-user"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-dd-header" id="userDdHeader">
+                        <p class="dd-welcome">Hello, Guest 👋</p>
+                        <p class="dd-sub">Login for best experience</p>
+                    </div>
+                    <div class="user-dd-auth" id="userDdAuth">
+                        <button class="btn-solid" onclick="openAuthModal('login')">Login</button>
+                        <button class="btn-outline" onclick="openAuthModal('register')">Register</button>
+                    </div>
+                    <div class="user-dd-links" id="userDdLinks" style="display:none">
+                        <a href="profile.html"><i class="far fa-user"></i> My Profile</a>
+                        <a href="orders.html"><i class="fas fa-box"></i> My Orders</a>
+                        <a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart -->
+            <button class="action-btn cart-action" id="cartBtn" aria-label="Cart">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="badge-count" id="cartCount">0</span>
+            </button>
+
+            <!-- Hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-header">
+        <a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a>
+        <button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="mobile-nav-user" id="mobileNavUser">
+        <div class="mobile-nav-auth" id="mobileNavAuth">
+            <p>Hello, Guest! <a href="#" onclick="openAuthModal('login')">Login / Register</a></p>
+        </div>
+        <div class="mobile-nav-userinfo" id="mobileNavUserInfo" style="display:none">
+            <p>Hello, <span id="mobileUserName">User</span>! <a href="profile.html">My Account</a></p>
+        </div>
+    </div>
+    <nav class="mobile-nav-links">
+        <a href="shop.html?c=mens-fashion"><i class="fas fa-tshirt"></i> Men's Fashion</a>
+        <a href="shop.html?c=womens-fashion"><i class="fas fa-vest-patches"></i> Women's Fashion</a>
+        <a href="shop.html?c=footwear"><i class="fas fa-shoe-prints"></i> Footwear</a>
+        <a href="shop.html?c=accessories"><i class="fas fa-gem"></i> Accessories</a>
+        <a href="shop.html?c=beauty"><i class="fas fa-spa"></i> Beauty</a>
+        <a href="shop.html?c=electronics"><i class="fas fa-headphones"></i> Electronics</a>
+        <a href="shop.html?sort=discount" class="sale-link"><i class="fas fa-fire"></i> Sale 🔥</a>
+        <hr>
+        <a href="orders.html"><i class="fas fa-box"></i> My Orders</a>
+        <a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a>
+    </nav>
+</div>
+
+<!-- ═══════════════ CART SIDEBAR ═══════════════ -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h3>Your Bag <span id="cartItemsLabel">(0 items)</span></h3>
+        <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-body" id="cartBody">
+        <div class="cart-empty" id="cartEmpty">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Your bag is empty</p>
+            <a href="shop.html" class="btn-solid">Start Shopping</a>
+        </div>
+        <div id="cartItems"></div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+        <div class="cart-coupon">
+            <input type="text" id="couponInput" placeholder="Enter coupon code">
+            <button id="applyCouponBtn">Apply</button>
+        </div>
+        <div class="cart-totals">
+            <div class="total-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+            <div class="total-row discount-row" id="discountRow" style="display:none"><span>Discount</span><span id="cartDiscount" class="green">-₹0</span></div>
+            <div class="total-row"><span>Shipping</span><span id="cartShipping">₹99</span></div>
+            <div class="total-row"><span>GST (5%)</span><span id="cartTax">₹0</span></div>
+            <div class="total-row grand-total"><span>Total</span><span id="cartTotal">₹0</span></div>
+        </div>
+        <a href="checkout.html" class="btn-solid checkout-btn">Proceed to Checkout <i class="fas fa-arrow-right"></i></a>
+        <p class="secure-note"><i class="fas fa-lock"></i> 100% Secure Checkout</p>
+    </div>
+</div>
+
+<!-- ═══════════════ AUTH MODAL ═══════════════ -->
+<div class="modal-overlay" id="authOverlay"></div>
+<div class="auth-modal" id="authModal">
+    <button class="modal-close" id="authClose"><i class="fas fa-times"></i></button>
+    <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login" id="loginTab">Login</button>
+        <button class="auth-tab" data-tab="register" id="registerTab">Register</button>
+    </div>
+    <!-- Login Form -->
+    <div class="auth-form active" id="loginForm">
+        <div class="auth-header">
+            <h2>Welcome Back!</h2>
+            <p>Login to your Wellsty account</p>
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <div class="password-wrap">
+                <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password">
+                <button class="toggle-pass" onclick="togglePassword('loginPassword')"><i class="fas fa-eye"></i></button>
+            </div>
+        </div>
+        <div class="auth-error" id="loginError"></div>
+        <button class="btn-solid full-btn" id="loginSubmitBtn" onclick="handleLogin()">Login <i class="fas fa-arrow-right"></i></button>
+        <p class="auth-switch">Don't have an account? <a href="#" onclick="switchTab('register')">Register</a></p>
+    </div>
+    <!-- Register Form -->
+    <div class="auth-form" id="registerForm">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join Wellsty for exclusive deals</p>
+        </div>
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="regName" placeholder="Enter your full name" autocomplete="name">
+        </div>
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="regEmail" placeholder="Enter your email" autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <div class="password-wrap">
+                <input type="password" id="regPassword" placeholder="Min 6 characters" autocomplete="new-password">
+                <button class="toggle-pass" onclick="togglePassword('regPassword')"><i class="fas fa-eye"></i></button>
+            </div>
+        </div>
+        <div class="auth-error" id="registerError"></div>
+        <button class="btn-solid full-btn" id="registerSubmitBtn" onclick="handleRegister()">Create Account <i class="fas fa-arrow-right"></i></button>
+        <p class="auth-switch">Already have an account? <a href="#" onclick="switchTab('login')">Login</a></p>
+    </div>
+</div>
+
+<!-- ═══════════════ HERO SLIDER ═══════════════ -->
+<section class="hero-slider" id="heroSlider">
+    <div class="slide active" style="--slide-bg: linear-gradient(120deg, #0f0c29, #302b63, #24243e)">
+        <div class="slide-image">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop" alt="New Collection">
+        </div>
+        <div class="slide-content">
+            <span class="slide-badge">New Season Drop</span>
+            <h1>Redefine <br><em>Your Style</em></h1>
+            <p>Curated collections for the bold and the beautiful. Explore premium streetwear, luxury accessories, and more.</p>
+            <div class="slide-actions">
+                <a href="shop.html" class="btn-solid">Shop Now <i class="fas fa-arrow-right"></i></a>
+                <a href="shop.html?trending=true" class="btn-ghost">Trending Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="slide" style="--slide-bg: linear-gradient(120deg, #1a1a2e, #16213e, #0f3460)">
+        <div class="slide-image">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&auto=format&fit=crop" alt="Women's Collection">
+        </div>
+        <div class="slide-content">
+            <span class="slide-badge">Women's Edit</span>
+            <h1>Fashion <br><em>Meets Art</em></h1>
+            <p>Discover the season's most coveted pieces curated for the modern woman who leads with confidence.</p>
+            <div class="slide-actions">
+                <a href="shop.html?c=womens-fashion" class="btn-solid">Explore Women's</a>
+                <a href="shop.html?c=womens-fashion&new=true" class="btn-ghost">New Arrivals</a>
+            </div>
+        </div>
+    </div>
+    <div class="slide" style="--slide-bg: linear-gradient(120deg, #2d1b69, #11998e, #38ef7d)">
+        <div class="slide-image">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&auto=format&fit=crop" alt="Sale Campaign">
+        </div>
+        <div class="slide-content">
+            <span class="slide-badge sale-badge">Up to 50% Off</span>
+            <h1>Season <br><em>Sale Is Live!</em></h1>
+            <p>Don't miss out on the biggest sale of the year. Premium products at unbeatable prices across all categories.</p>
+            <div class="slide-actions">
+                <a href="shop.html?sort=discount" class="btn-solid btn-accent">Shop Sale <i class="fas fa-fire"></i></a>
+                <a href="shop.html?c=footwear" class="btn-ghost">Footwear Deals</a>
+            </div>
+        </div>
+    </div>
+    <!-- Slider controls -->
+    <button class="slider-btn prev" id="sliderPrev"><i class="fas fa-chevron-left"></i></button>
+    <button class="slider-btn next" id="sliderNext"><i class="fas fa-chevron-right"></i></button>
+    <div class="slider-dots" id="sliderDots">
+        <span class="dot active" data-slide="0"></span>
+        <span class="dot" data-slide="1"></span>
+        <span class="dot" data-slide="2"></span>
+    </div>
+</section>
+
+<!-- ═══════════════ TRUST BAR ═══════════════ -->
+<section class="trust-bar">
+    <div class="trust-inner">
+        <div class="trust-item">
+            <i class="fas fa-shipping-fast"></i>
+            <div>
+                <strong>Free Delivery</strong>
+                <span>On orders above ₹999</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <i class="fas fa-redo-alt"></i>
+            <div>
+                <strong>Easy Returns</strong>
+                <span>30-day hassle-free</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+                <strong>Secure Payment</strong>
+                <span>100% safe & encrypted</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <i class="fas fa-certificate"></i>
+            <div>
+                <strong>100% Authentic</strong>
+                <span>Verified genuine products</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <i class="fas fa-headset"></i>
+            <div>
+                <strong>24/7 Support</strong>
+                <span>Always here to help</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ CATEGORY GRID ═══════════════ -->
+<section class="section-pad">
+    <div class="container">
+        <div class="section-head">
+            <h2 class="section-title">Shop by Category</h2>
+            <p class="section-sub">Find your perfect style across our curated collections</p>
+        </div>
+        <div class="cat-grid">
+            <a href="shop.html?c=mens-fashion" class="cat-card" data-cat="mens">
+                <div class="cat-img">
+                    <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&auto=format&fit=crop" alt="Men's Fashion">
+                </div>
+                <div class="cat-info">
+                    <h3>Men's Fashion</h3>
+                    <span>2000+ Styles</span>
+                </div>
+            </a>
+            <a href="shop.html?c=womens-fashion" class="cat-card" data-cat="womens">
+                <div class="cat-img">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop" alt="Women's Fashion">
+                </div>
+                <div class="cat-info">
+                    <h3>Women's Fashion</h3>
+                    <span>3500+ Styles</span>
+                </div>
+            </a>
+            <a href="shop.html?c=footwear" class="cat-card" data-cat="footwear">
+                <div class="cat-img">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop" alt="Footwear">
+                </div>
+                <div class="cat-info">
+                    <h3>Footwear</h3>
+                    <span>1200+ Pairs</span>
+                </div>
+            </a>
+            <a href="shop.html?c=accessories" class="cat-card" data-cat="accessories">
+                <div class="cat-img">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop" alt="Accessories">
+                </div>
+                <div class="cat-info">
+                    <h3>Accessories</h3>
+                    <span>800+ Items</span>
+                </div>
+            </a>
+            <a href="shop.html?c=beauty" class="cat-card" data-cat="beauty">
+                <div class="cat-img">
+                    <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=800&auto=format&fit=crop" alt="Beauty">
+                </div>
+                <div class="cat-info">
+                    <h3>Beauty</h3>
+                    <span>600+ Products</span>
+                </div>
+            </a>
+            <a href="shop.html?c=electronics" class="cat-card" data-cat="electronics">
+                <div class="cat-img">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop" alt="Electronics">
+                </div>
+                <div class="cat-info">
+                    <h3>Electronics</h3>
+                    <span>400+ Products</span>
+                </div>
             </a>
         </div>
-    </header>
+    </div>
+</section>
 
-    <div id="modalsContainer"></div>
-
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Style Meets Convenience</h1>
-            <p>Explore our curated collection of premium fashion, timeless accessories, and daily essentials.</p>
-            <a href="#categories" class="cta-button">Start Shopping</a>
+<!-- ═══════════════ TRENDING NOW ═══════════════ -->
+<section class="section-pad bg-alt">
+    <div class="container">
+        <div class="section-head with-action">
+            <div>
+                <h2 class="section-title">Trending Now 🔥</h2>
+                <p class="section-sub">Most loved products this week</p>
+            </div>
+            <a href="shop.html?trending=true" class="see-all">See All <i class="fas fa-arrow-right"></i></a>
         </div>
-    </section>
-
-    <section id="categories" class="categories-section">
-        <div class="section-header">
-            <h2>Shop by Category</h2>
-            <p>Find exactly what you need from our wide range of collections</p>
+        <div class="products-row" id="trendingProducts">
+            <!-- Skeleton Loaders -->
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
         </div>
+    </div>
+</section>
 
-        <div class="categories-grid">
-            <div class="category-card">
-                <div class="card-bg" style="background-image: url('images/fashion.avif'); background-color: #ddd;"></div>
-                <div class="card-overlay">
-                    <h3>Fashion</h3>
-                    <p>Trendsetting styles for every season.</p>
-                    <a href="fashion.html" class="card-link">View Collection <i class="fas fa-arrow-right"></i></a>
+<!-- ═══════════════ SALE BANNER ═══════════════ -->
+<section class="sale-banner">
+    <div class="container">
+        <div class="sale-banner-inner">
+            <div class="sale-text">
+                <span class="sale-tag">Limited Time Offer</span>
+                <h2>Season Sale</h2>
+                <p class="sale-disc">Up to <em>50% off</em> on premium brands</p>
+                <a href="shop.html?sort=discount" class="btn-solid btn-accent">Shop Sale Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="sale-countdown" id="saleCountdown">
+                <div class="countdown-item"><span id="cdDays">00</span><small>Days</small></div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-item"><span id="cdHours">00</span><small>Hours</small></div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-item"><span id="cdMins">00</span><small>Mins</small></div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-item"><span id="cdSecs">00</span><small>Secs</small></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ NEW ARRIVALS ═══════════════ -->
+<section class="section-pad">
+    <div class="container">
+        <div class="section-head with-action">
+            <div>
+                <h2 class="section-title">New Arrivals ✨</h2>
+                <p class="section-sub">Fresh drops you'll love</p>
+            </div>
+            <a href="shop.html?new=true" class="see-all">See All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="products-grid" id="newArrivalsGrid">
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ FEATURED EDITORIAL ═══════════════ -->
+<section class="editorial-section section-pad bg-alt">
+    <div class="container">
+        <div class="editorial-grid">
+            <div class="editorial-card large">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&auto=format&fit=crop" alt="Women's Collection">
+                <div class="editorial-content">
+                    <span>Featured Collection</span>
+                    <h3>The Modern Woman</h3>
+                    <a href="shop.html?c=womens-fashion" class="btn-ghost-sm">Shop Women's</a>
                 </div>
             </div>
-
-            <div class="category-card">
-                <div class="card-bg" style="background-image: url('images/accesories.avif'); background-color: #ddd;"></div>
-                <div class="card-overlay">
-                    <h3>Accessories</h3>
-                    <p>The perfect details to complete your look.</p>
-                    <a href="accessories.html" class="card-link">View Collection <i class="fas fa-arrow-right"></i></a>
+            <div class="editorial-col">
+                <div class="editorial-card">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&auto=format&fit=crop" alt="Accessories">
+                    <div class="editorial-content">
+                        <span>Must Haves</span>
+                        <h3>Accessorize Your Look</h3>
+                        <a href="shop.html?c=accessories" class="btn-ghost-sm">Shop Accessories</a>
+                    </div>
+                </div>
+                <div class="editorial-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&auto=format&fit=crop" alt="Footwear">
+                    <div class="editorial-content">
+                        <span>Step Up</span>
+                        <h3>Footwear That Speaks</h3>
+                        <a href="shop.html?c=footwear" class="btn-ghost-sm">Shop Footwear</a>
+                    </div>
                 </div>
             </div>
-
-       
-    </section>
-    
-    <section id="features" class="features-section">
-        <div class="section-header">
-            <h2>Why Choose Wellsty?</h2>
-            <p>Experience the premium everyday.</p>
         </div>
-        <div class="features">
-            <div class="feature-item">
-                <i class="fas fa-shipping-fast feature-icon"></i>
-                <h3>Fast Shipping</h3>
-                <p>Guaranteed 5-day delivery on all orders across the country.</p>
+    </div>
+</section>
+
+<!-- ═══════════════ FEATURED PRODUCTS ═══════════════ -->
+<section class="section-pad">
+    <div class="container">
+        <div class="section-head with-action">
+            <div>
+                <h2 class="section-title">Top Picks For You ⭐</h2>
+                <p class="section-sub">Editor-curated favourites across all categories</p>
             </div>
-            <div class="feature-item">
-                <i class="fas fa-redo-alt feature-icon"></i>
-                <h3>Easy Returns</h3>
-                <p>Hassle-free 15-day return policy for ultimate peace of mind.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-life-ring feature-icon"></i>
-                <h3>24/7 Support</h3>
-                <p>Dedicated customer service available around the clock to help you.</p>
+            <a href="shop.html?featured=true" class="see-all">See All <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="products-grid" id="featuredGrid">
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+            <div class="product-skeleton"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ BRAND STRIP ═══════════════ -->
+<section class="brands-section">
+    <div class="container">
+        <p class="brands-title">Trusted Brands</p>
+        <div class="brands-track">
+            <div class="brands-inner" id="brandsInner">
+                <span>Wellsty</span><span>Street Code</span><span>Brooks Club</span>
+                <span>SwiftStep</span><span>EdgeWalk</span><span>Ray Vision</span>
+                <span>Tempo</span><span>Bloom Collective</span><span>SoundHaven</span>
+                <span>Golden Glow</span><span>Nomad Packs</span><span>Nordic Knit</span>
+                <!-- Duplicate for infinite scroll -->
+                <span>Wellsty</span><span>Street Code</span><span>Brooks Club</span>
+                <span>SwiftStep</span><span>EdgeWalk</span><span>Ray Vision</span>
+                <span>Tempo</span><span>Bloom Collective</span><span>SoundHaven</span>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<section class="section-pad bg-alt">
+    <div class="container">
+        <div class="section-head">
+            <h2 class="section-title">What Our Customers Say 💬</h2>
+            <p class="section-sub">Real reviews from real shoppers</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"Absolutely love Wellsty! The quality of the clothes is incredible and delivery was super fast. The packaging was premium too. Already placed my second order!"</p>
+                <div class="testi-author">
+                    <img src="https://i.pravatar.cc/48?img=47" alt="Priya S.">
+                    <div>
+                        <strong>Priya S.</strong>
+                        <small>Mumbai • Verified Buyer</small>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card featured-testi">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"I've shopped from many fashion sites but Wellsty stands out. The curation is spot on, prices are fair, and the return process was seamless when I needed to size up. Highly recommend!"</p>
+                <div class="testi-author">
+                    <img src="https://i.pravatar.cc/48?img=12" alt="Arjun K.">
+                    <div>
+                        <strong>Arjun K.</strong>
+                        <small>Bangalore • Verified Buyer</small>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+                <p>"The sneakers I ordered arrived in 3 days, perfectly packaged. Exactly as shown in pictures. The wide-leg trousers fit perfectly too. Wellsty is now my go-to shopping destination!"</p>
+                <div class="testi-author">
+                    <img src="https://i.pravatar.cc/48?img=32" alt="Meera R.">
+                    <div>
+                        <strong>Meera R.</strong>
+                        <small>Chennai • Verified Buyer</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ NEWSLETTER ═══════════════ -->
+<section class="newsletter-section">
+    <div class="container">
+        <div class="newsletter-inner">
+            <div class="newsletter-text">
+                <h2>Stay in the Loop 📬</h2>
+                <p>Subscribe for exclusive drops, early access sales, and style inspiration delivered to your inbox.</p>
+            </div>
+            <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                <div class="nl-input-group">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-solid">Subscribe</button>
+                </div>
+                <p class="nl-disclaimer">No spam, unsubscribe anytime. 🔒</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+    <div class="container">
         <div class="footer-grid">
-            <div class="footer-col">
-                <h4>Wellsty</h4>
-                <p>Your ultimate destination for lifestyle and essentials. We bring quality and style together.</p>
+            <div class="footer-brand">
+                <a href="index.html" class="brand-logo footer-logo">W<span class="logo-e"><span></span></span>LLSTY</a>
+                <p>India's premium fashion destination. Curating the best of global fashion, delivered to your door.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/shops_buzz" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+                <div class="app-badges">
+                    <a href="#" class="app-badge"><i class="fab fa-apple"></i> App Store</a>
+                    <a href="#" class="app-badge"><i class="fab fa-google-play"></i> Play Store</a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Quick Links</h4>
+                <h4>Shop</h4>
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#categories">Shop</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="shop.html?c=mens-fashion">Men's Fashion</a></li>
+                    <li><a href="shop.html?c=womens-fashion">Women's Fashion</a></li>
+                    <li><a href="shop.html?c=footwear">Footwear</a></li>
+                    <li><a href="shop.html?c=accessories">Accessories</a></li>
+                    <li><a href="shop.html?c=beauty">Beauty</a></li>
+                    <li><a href="shop.html?c=electronics">Electronics</a></li>
+                    <li><a href="shop.html?sort=discount">Sale Items</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Customer Care</h4>
+                <h4>Customer Service</h4>
                 <ul>
-                    <li><a href="#">Tracking Order</a></li>
-                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Track Your Order</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
                     <li><a href="#">Shipping Info</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Contact Info</h4>
+                <h4>Company</h4>
                 <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> Coimbatore </li>
-                    <li><i class="fas fa-phone"></i> 9494387272 </li>
-                    <li><i class="fas fa-envelope"></i> shopwellsty@gmail.com</li>
+                    <li><a href="#">About Wellsty</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="admin.html">Admin Dashboard</a></li>
                 </ul>
             </div>
         </div>
-        <div class="copyright">
-            &copy; 2023 wellsty. All rights reserved.
+        <div class="footer-bottom">
+            <p>© 2026 Wellsty India Private Limited. All rights reserved.</p>
+            <div class="payment-icons">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/200px-Paytm_Logo_%28standalone%29.svg.png" alt="Paytm" class="payment-logo">
+                <span class="upi-badge">UPI</span>
+                <span class="cod-badge">COD</span>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script src="js/common.js"></script>
-    <script src="js/index.js"></script>
-    
-    <script>
-        fetch('common-modals.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('modalsContainer').innerHTML = html;
-                
-                // Manually re-initialize the handlers after the elements are in the DOM
-                setupModalHandlers();
-                setupAuthForms();
-            });
-    </script>
+<!-- Toast Notification -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Quick View Modal -->
+<div class="modal-overlay" id="quickViewOverlay"></div>
+<div class="quick-view-modal" id="quickViewModal">
+    <button class="modal-close" onclick="closeQuickView()"><i class="fas fa-times"></i></button>
+    <div id="quickViewContent"></div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/home.js"></script>
 </body>
-
 </html>
-
-

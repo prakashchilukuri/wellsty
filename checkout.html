@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Wellsty</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .checkout-page{max-width:1100px;margin:0 auto;padding:0 1.5rem;padding-top:calc(38px + var(--header-h) + 2rem);padding-bottom:4rem}
+    .checkout-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:2.5rem;align-items:start}
+    .checkout-left{}
+    .checkout-section{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem}
+    .checkout-section h3{font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+    .checkout-section h3 .step-num{width:28px;height:28px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .payment-options{display:flex;flex-direction:column;gap:.75rem}
+    .payment-option{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition)}
+    .payment-option:hover{border-color:rgba(124,58,237,.4)}
+    .payment-option.selected{border-color:var(--primary);background:rgba(124,58,237,.08)}
+    .payment-option input[type=radio]{accent-color:var(--primary);width:18px;height:18px}
+    .payment-option label{cursor:pointer;font-size:.95rem;font-weight:500;flex:1}
+    .payment-option i{font-size:1.2rem;color:var(--primary);width:24px}
+    .order-summary-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;position:sticky;top:calc(var(--header-h) + 1rem)}
+    .order-summary-card h3{font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+    .order-item-thin{display:flex;gap:.85rem;align-items:center;margin-bottom:.85rem;font-size:.88rem}
+    .order-item-thin img{width:52px;height:58px;border-radius:8px;object-fit:cover;background:var(--bg-surface)}
+    .order-item-thin-info{flex:1}
+    .order-item-thin-name{font-weight:600;margin-bottom:.15rem}
+    .order-item-thin-meta{color:var(--text-dim);font-size:.78rem}
+    .place-order-btn{width:100%;padding:1.1rem;font-size:1rem;font-weight:700;border-radius:var(--radius-sm);margin-top:1.25rem}
+    @media(max-width:768px){.checkout-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.order-summary-card{position:static}}
+  </style>
+</head>
+<body>
+<div class="announcement-bar" id="announcementBar"><div class="announcement-track"><span>🔒 100% Secure Checkout</span><span class="sep">|</span><span>🚀 Free Delivery above ₹999</span><span class="sep">|</span><span>🔄 Easy 30-Day Returns</span><span class="sep">|</span><span>🔒 100% Secure Checkout</span></div></div>
+<header class="site-header scrolled" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a>
+    <div style="display:flex;align-items:center;gap:.75rem;color:var(--text-muted);font-size:.85rem">
+      <i class="fas fa-lock" style="color:var(--green)"></i> Secure Checkout
+    </div>
+    <div class="header-actions">
+      <button class="action-btn cart-action" id="cartBtn"><i class="fas fa-shopping-bag"></i><span class="badge-count" id="cartCount">0</span></button>
+    </div>
+  </div>
+</header>
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3>Your Bag <span id="cartItemsLabel">(0 items)</span></h3><button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button></div><div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p><a href="shop.html" class="btn-solid">Shop Now</a></div><div id="cartItems"></div></div><div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-coupon"><input type="text" id="couponInput" placeholder="Coupon"><button id="applyCouponBtn">Apply</button></div><div class="cart-totals"><div class="total-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div><div class="total-row discount-row" id="discountRow" style="display:none"><span>Discount</span><span id="cartDiscount" class="green">-₹0</span></div><div class="total-row"><span>Shipping</span><span id="cartShipping">₹99</span></div><div class="total-row"><span>GST</span><span id="cartTax">₹0</span></div><div class="total-row grand-total"><span>Total</span><span id="cartTotal">₹0</span></div></div><a href="checkout.html" class="btn-solid checkout-btn">Checkout</a></div></div>
+<div class="modal-overlay" id="authOverlay"></div>
+<div class="auth-modal" id="authModal"><button class="modal-close" id="authClose"><i class="fas fa-times"></i></button><div class="auth-tabs"><button class="auth-tab active" data-tab="login" id="loginTab">Login</button><button class="auth-tab" data-tab="register" id="registerTab">Register</button></div><div class="auth-form active" id="loginForm"><div class="auth-header"><h2>Login to Checkout</h2></div><div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Email"></div><div class="form-group"><label>Password</label><div class="password-wrap"><input type="password" id="loginPassword" placeholder="Password"><button class="toggle-pass" onclick="togglePassword('loginPassword')"><i class="fas fa-eye"></i></button></div></div><div class="auth-error" id="loginError"></div><button class="btn-solid full-btn" id="loginSubmitBtn" onclick="handleLogin()">Login</button><p class="auth-switch">New? <a href="#" onclick="switchTab('register')">Register</a></p></div><div class="auth-form" id="registerForm"><div class="auth-header"><h2>Create Account</h2></div><div class="form-group"><label>Name</label><input type="text" id="regName" placeholder="Full name"></div><div class="form-group"><label>Email</label><input type="email" id="regEmail" placeholder="Email"></div><div class="form-group"><label>Password</label><div class="password-wrap"><input type="password" id="regPassword" placeholder="Min 6 chars"><button class="toggle-pass" onclick="togglePassword('regPassword')"><i class="fas fa-eye"></i></button></div></div><div class="auth-error" id="registerError"></div><button class="btn-solid full-btn" id="registerSubmitBtn" onclick="handleRegister()">Create Account</button></div></div>
+
+<div class="checkout-page">
+  <h1 style="font-size:2rem;font-weight:900;margin-bottom:2rem;font-family:'Playfair Display',serif">Checkout</h1>
+  <div id="loginRequired" style="display:none;background:var(--bg-card);border:1px solid rgba(124,58,237,.3);border-radius:var(--radius);padding:2rem;text-align:center;margin-bottom:2rem">
+    <i class="fas fa-lock" style="font-size:2rem;color:var(--primary);margin-bottom:1rem;display:block"></i>
+    <h3 style="margin-bottom:.5rem">Login Required</h3>
+    <p style="color:var(--text-muted);margin-bottom:1.5rem">Please login to complete your purchase</p>
+    <button class="btn-solid" onclick="openAuthModal('login')">Login / Register</button>
+  </div>
+  <div id="checkoutContent" style="display:none">
+    <div class="checkout-grid">
+      <div class="checkout-left">
+        <!-- Delivery Address -->
+        <div class="checkout-section">
+          <h3><span class="step-num">1</span> Delivery Address</h3>
+          <div class="form-row">
+            <div class="form-group"><label>Full Name *</label><input type="text" id="shipName" placeholder="Enter full name"></div>
+            <div class="form-group"><label>Phone *</label><input type="text" id="shipPhone" placeholder="10-digit mobile number"></div>
+          </div>
+          <div class="form-group"><label>Street Address *</label><input type="text" id="shipStreet" placeholder="House no., Street, Area"></div>
+          <div class="form-row">
+            <div class="form-group"><label>City *</label><input type="text" id="shipCity" placeholder="City"></div>
+            <div class="form-group"><label>State *</label><input type="text" id="shipState" placeholder="State"></div>
+          </div>
+          <div class="form-group"><label>PIN Code *</label><input type="text" id="shipPin" placeholder="6-digit Pincode" style="max-width:200px"></div>
+        </div>
+        <!-- Payment -->
+        <div class="checkout-section">
+          <h3><span class="step-num">2</span> Payment Method</h3>
+          <div class="payment-options">
+            <div class="payment-option selected" onclick="selectPayment('COD', this)">
+              <input type="radio" name="payment" value="COD" checked>
+              <i class="fas fa-money-bill-wave"></i>
+              <label>Cash on Delivery</label>
+            </div>
+            <div class="payment-option" onclick="selectPayment('UPI', this)">
+              <input type="radio" name="payment" value="UPI">
+              <i class="fas fa-mobile-alt"></i>
+              <label>UPI (Google Pay / PhonePe / Paytm)</label>
+            </div>
+            <div class="payment-option" onclick="selectPayment('CARD', this)">
+              <input type="radio" name="payment" value="CARD">
+              <i class="fas fa-credit-card"></i>
+              <label>Credit / Debit Card</label>
+            </div>
+            <div class="payment-option" onclick="selectPayment('NET_BANKING', this)">
+              <input type="radio" name="payment" value="NET_BANKING">
+              <i class="fas fa-university"></i>
+              <label>Net Banking</label>
+            </div>
+          </div>
+          <div id="upiSection" style="display:none;margin-top:1rem"><div class="form-group"><label>UPI ID</label><input type="text" id="upiId" placeholder="name@upi"></div></div>
+          <div id="cardSection" style="display:none;margin-top:1rem">
+            <div class="form-group"><label>Card Number</label><input type="text" id="cardNum" placeholder="1234 5678 9012 3456"></div>
+            <div class="form-row"><div class="form-group"><label>Expiry</label><input type="text" id="cardExp" placeholder="MM/YY"></div><div class="form-group"><label>CVV</label><input type="password" id="cardCvv" placeholder="CVV" maxlength="4"></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Order Summary -->
+      <div class="order-summary-card">
+        <h3>Order Summary</h3>
+        <div id="checkoutItems"></div>
+        <div class="cart-totals" style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+          <div class="total-row"><span>Items Total</span><span id="coSubtotal">₹0</span></div>
+          <div class="total-row" id="coDiscRow" style="display:none"><span>Discount</span><span class="green" id="coDisc">-₹0</span></div>
+          <div class="total-row"><span>Delivery</span><span id="coShipping">₹99</span></div>
+          <div class="total-row"><span>GST (5%)</span><span id="coTax">₹0</span></div>
+          <div class="total-row grand-total"><span>You Pay</span><span id="coTotal">₹0</span></div>
+        </div>
+        <p style="font-size:.78rem;color:var(--green);text-align:center;margin-top:.75rem" id="savingMsg"></p>
+        <button class="btn-solid place-order-btn" onclick="placeOrder()">
+          <i class="fas fa-lock"></i> Place Order Securely
+        </button>
+        <p class="secure-note" style="margin-top:.75rem"><i class="fas fa-shield-alt" style="color:var(--green)"></i> 100% Secure & Encrypted</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/ui.js"></script>
+<script>
+let selectedPayment = 'COD';
+
+function selectPayment(method, el) {
+  selectedPayment = method;
+  document.querySelectorAll('.payment-option').forEach(o => { o.classList.remove('selected'); o.querySelector('input').checked = false; });
+  el.classList.add('selected'); el.querySelector('input').checked = true;
+  document.getElementById('upiSection').style.display = method === 'UPI' ? 'block' : 'none';
+  document.getElementById('cardSection').style.display = method === 'CARD' ? 'block' : 'none';
+}
+
+function renderCheckoutSummary() {
+  const items = cartState.items;
+  const t = cartState.totals;
+  const el = document.getElementById('checkoutItems');
+  if (el) el.innerHTML = items.map(i => `<div class="order-item-thin"><img src="${i.image}" alt="${i.name}" loading="lazy"><div class="order-item-thin-info"><div class="order-item-thin-name">${i.name}</div><div class="order-item-thin-meta">Qty: ${i.qty}${i.size?' • '+i.size:''}</div></div><strong>${formatPrice(i.price * i.qty)}</strong></div>`).join('');
+  const set = (id,val) => { const e=document.getElementById(id); if(e) e.textContent=val; };
+  set('coSubtotal', formatPrice(t.subtotal));
+  set('coShipping', t.shipping===0 ? 'FREE 🎉' : formatPrice(t.shipping));
+  set('coTax', formatPrice(t.tax));
+  set('coTotal', formatPrice(t.total));
+  if (t.discount>0) { document.getElementById('coDiscRow').style.display='flex'; set('coDisc','-'+formatPrice(t.discount)); set('savingMsg','🎉 You\'re saving '+formatPrice(t.discount)+'!'); }
+}
+
+async function placeOrder() {
+  const token = localStorage.getItem('wellsty_token');
+  if (!token) { openAuthModal('login'); return; }
+  const name = document.getElementById('shipName')?.value?.trim();
+  const phone = document.getElementById('shipPhone')?.value?.trim();
+  const street = document.getElementById('shipStreet')?.value?.trim();
+  const city = document.getElementById('shipCity')?.value?.trim();
+  const state = document.getElementById('shipState')?.value?.trim();
+  const pincode = document.getElementById('shipPin')?.value?.trim();
+  if (!name||!phone||!street||!city||!state||!pincode) { showToast('Please fill all address fields', 'error'); return; }
+  if (!cartState.items.length) { showToast('Your cart is empty', 'error'); return; }
+  const btn = document.querySelector('.place-order-btn');
+  btn.innerHTML = '<span class="spinner"></span> Placing Order...'; btn.disabled = true;
+  try {
+    const data = await api.createOrder({ shippingAddress: {name,phone,street,city,state,pincode}, paymentMethod: selectedPayment });
+    showToast('Order placed successfully! 🎉', 'success');
+    cartState.items = []; renderCart();
+    setTimeout(() => { location.href = 'orders.html?new='+data.order._id; }, 1500);
+  } catch(e) { showToast(e.message || 'Failed to place order', 'error'); btn.innerHTML = '<i class="fas fa-lock"></i> Place Order Securely'; btn.disabled = false; }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('wellsty_token');
+  if (!token) { document.getElementById('loginRequired').style.display='block'; }
+  else { document.getElementById('checkoutContent').style.display='block'; }
+  setTimeout(renderCheckoutSummary, 800);
+});
+window.selectPayment = selectPayment;
+window.placeOrder = placeOrder;
+</script>
+</body>
+</html>

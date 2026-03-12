@@ -3,153 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michael Kors Watch - ShopsBuzz</title>
+    <title>Product Details | Wellsty</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/product-details.css"> 
+    <link rel="stylesheet" href="style.css">
+    <script src="js/products.js"></script>
+    <script src="js/common.js"></script>
 </head>
 <body>
+    <div class="hero-gradient-overlay"></div>
 
-    <header>
+    <header id="mainHeader" class="scrolled">
+        <div class="logo-container">
+            <div class="brand-name">Wellsty</div>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Home</a>
-            <a href="fashion.html" style="color: #FF4F81; font-weight: 600;">Fashion</a>
+            <a href="fashion.html">Fashion</a>
+            <a href="accessories.html">Accessories</a>
             <a href="index.html#features">About</a>
         </nav>
-        <div class="logo-container">
-            <img src="images/logo.png" alt="ShopsBuss Logo" class="site-logo">
-            <div class="brand-name">ShopsBuzz</div>
-        </div>
         <div class="header-icons">
             <div class="search-wrapper" id="searchWrapper">
                 <i class="fas fa-search search-trigger" id="searchTrigger"></i>
-                <div class="search-expand" id="searchExpand">
-                    <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
+                <div class="search-expand glass" id="searchExpand">
+                    <input type="text" id="searchInput" placeholder="Search Wellsty..." autocomplete="off">
                     <i class="fas fa-times search-close" id="searchClose"></i>
                 </div>
             </div>
-            
             <a href="#" class="icon-btn" id="userBtn"><i class="far fa-user"></i></a>
-            
             <a href="#" class="icon-btn" id="cartBtn">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count" id="cartCount" style="background-color: #FF4F81;">0</span>
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
             </a>
         </div>
     </header>
 
     <div id="modalsContainer"></div>
 
-    <div class="breadcrumbs">
-        <span>Home</span> / <span>Accessories</span> / <span>Watches</span> / <span class="current">Michael Kors</span>
-    </div>
-
-    <section class="product-container">
-        
-        <div class="image-gallery">
-            <div class="img-grid-item">
-                <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?q=80&w=1000&auto=format&fit=crop" alt="Watch Front View">
-            </div>
-            <div class="img-grid-item">
-                <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1000&auto=format&fit=crop" alt="Watch Side View">
-            </div>
-            <div class="img-grid-item">
-                <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?q=80&w=1000&auto=format&fit=crop" alt="Watch Wrist View">
-            </div>
-            <div class="img-grid-item">
-                <img src="https://images.unsplash.com/photo-1434056838489-29f8eb96c289?q=80&w=1000&auto=format&fit=crop" alt="Watch Detail View">
-            </div>
-        </div>
-
-        <div class="product-details">
-            <h1 class="brand-title">Michael Kors</h1>
-            <p class="product-name">Women Rose Gold Pyper Analogue Watch MK3897</p>
-            
-            <div class="rating-box">
-                <span class="rating-pill">4.6 <i class="fas fa-star"></i></span>
-                <span class="rating-count">2.8k Ratings</span>
-            </div>
-
-            <hr class="divider">
-
-            <div class="price-info">
-                <span class="current-price">₹11,216</span>
-                <span class="mrp">MRP <span>₹16,495</span></span>
-                <span class="discount">(32% OFF)</span>
-            </div>
-            <p class="tax-note">inclusive of all taxes</p>
-
-            <div class="size-selector">
-                <h4>SELECT SIZE</h4>
-                <div class="sizes">
-                    <button class="size-btn active">Onesize</button>
-                </div>
-            </div>
-
-            <div class="action-buttons">
-                <button class="btn-add-bag"><i class="fas fa-shopping-bag"></i> ADD TO BAG</button>
-                <button class="btn-wishlist"><i class="far fa-heart"></i> WISHLIST</button>
-            </div>
-
-            <div class="delivery-options">
-                <h4>DELIVERY OPTIONS <i class="fas fa-truck"></i></h4>
-                <div class="pincode-box">
-                    <input type="text" placeholder="Enter pincode">
-                    <button>Check</button>
-                </div>
-                <p class="delivery-note">Please enter PIN code to check delivery time & Pay on Delivery Availability</p>
-            </div>
-
-            <div class="product-meta">
-                <h4>PRODUCT DETAILS</h4>
-                <p>Rose gold-toned analogue watch, has a round dial with stone-studded markings.</p>
-                <ul>
-                    <li>Dial Material: Stainless Steel</li>
-                    <li>Strap Material: Stainless Steel</li>
-                    <li>Water Resistance: 50m</li>
-                    <li>Warranty: 2 Years</li>
-                </ul>
-            </div>
-        </div>
+    <section class="container product-container" id="productDetailsContainer">
+        <!-- Content will be loaded dynamically -->
+        <div style="padding: 10rem; text-align: center; width: 100%;">Loading product...</div>
     </section>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h4>ShopsBuss</h4>
-                <p>Your ultimate destination for lifestyle and essentials.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col" style="padding-right: 2rem;">
+                    <div class="brand-name" style="margin-bottom: 2rem; display: block;">Wellsty</div>
+                    <p>Elevating Indian Streetwear through premium quality and modern aesthetics.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="fashion.html">Fashion</a></li>
+                        <li><a href="accessories.html">Accessories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Updates</h4>
+                    <button class="btn-premium" style="width: 100%; border-radius: 8px; padding: 0.8rem;">Subscribe</button>
                 </div>
             </div>
-            <div class="footer-col">
-                <h4>Contact Info</h4>
-                <ul>
-                    <li><i class="fas fa-envelope"></i> shopsbuzz@gmail.com</li>
-                </ul>
+            <div class="copyright">
+                &copy; 2026 Wellsty Group. All rights reserved.
             </div>
-        </div>
-        <div class="copyright">
-            &copy; 2023 ShopsBuss. All rights reserved.
         </div>
     </footer>
 
     <script src="js/common.js"></script>
-    <script src="js/product-details.js"></script>
-
     <script>
-        fetch('common-modals.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('modalsContainer').innerHTML = html;
-                
-                // Manually re-initialize the handlers after the elements are in the DOM
-                setupModalHandlers();
-                setupAuthForms();
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id') || 3; // Default to 3 for demo
+            const product = getProductById(productId);
+
+            if (product) {
+                const container = document.getElementById('productDetailsContainer');
+                container.innerHTML = `
+                    <div class="image-gallery">
+                        <div class="img-grid-item glass"><img src="${product.image}" alt="Detail"></div>
+                        <div class="img-grid-item glass"><img src="${product.image}" alt="Detail"></div>
+                        <div class="img-grid-item glass"><img src="${product.image}" alt="Detail"></div>
+                        <div class="img-grid-item glass"><img src="${product.image}" alt="Detail"></div>
+                    </div>
+
+                    <div class="product-details-content">
+                        <div class="brand-title">${BRAND_NAME} Luxe</div>
+                        <h1 class="p-name">${product.title}</h1>
+                        
+                        <div class="p-price-row">
+                            <span class="p-current-price">$${parseFloat(product.price).toFixed(2)}</span>
+                            <span class="p-mrp">$${(parseFloat(product.price) * 1.3).toFixed(2)}</span>
+                            <span class="p-discount">30% OFF</span>
+                        </div>
+
+                        <p style="color: var(--text-muted); margin-bottom: 3rem;">${product.description}</p>
+
+                        <div class="action-buttons" style="display: flex; gap: 1rem;">
+                            <button class="btn-premium" style="flex: 1; padding: 1.2rem; justify-content: center;" onclick="handleAddToCart(event, ${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                                <i class="fas fa-shopping-bag"></i> Add to Bag
+                            </button>
+                            <button class="glass" style="padding: 0 1.5rem; border-radius: 100px; color: var(--text-main);" onclick="toggleWishlist(event, ${product.id})">
+                                <i class="${isProductInWishlist(product.id) ? 'fas' : 'far'} fa-heart"></i>
+                            </button>
+                        </div>
+
+                        <div class="p-meta">
+                            <h4>Specification</h4>
+                            <ul>
+                                <li>Materials: Premium Grade</li>
+                                <li>Warranty: 2 Year Wellsty Protection</li>
+                                <li>Category: ${product.category}</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+        });
     </script>
 </body>
 </html>

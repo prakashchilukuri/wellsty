@@ -1,4 +1,5 @@
-// common.js - Shared functionality across all pages
+// wellsty.js - Shared functionality for Wellsty
+// Updated: 2026-03-13
 
 // ==================== GLOBAL STATE ====================
 let cart = [];
@@ -6,11 +7,11 @@ let isLoggedIn = false;
 
 // ==================== CART & AUTH PERSISTENCE ====================
 function saveCart() {
-    localStorage.setItem('shopsbuzz_cart', JSON.stringify(cart));
+    localStorage.setItem('wellsty_cart', JSON.stringify(cart));
 }
 
 function loadCart() {
-    const savedCart = localStorage.getItem('shopsbuzz_cart');
+    const savedCart = localStorage.getItem('wellsty_cart');
     if (savedCart) {
         cart = JSON.parse(savedCart);
         updateCartCount();
@@ -18,11 +19,11 @@ function loadCart() {
 }
 
 function saveAuthState() {
-    localStorage.setItem('shopsbuzz_logged_in', isLoggedIn);
+    localStorage.setItem('wellsty_logged_in', isLoggedIn);
 }
 
 function loadAuthState() {
-    const savedState = localStorage.getItem('shopsbuzz_logged_in');
+    const savedState = localStorage.getItem('wellsty_logged_in');
     isLoggedIn = savedState === 'true';
     updateUserIcon();
 }
@@ -483,6 +484,158 @@ function setupSmoothScrolling() {
 
 function setupHeaderScroll() {
     let lastScroll = 0;
+// Wellsty Global Configuration
+const BRAND_NAME = 'Wellsty';
+const STORAGE_PREFIX = 'wellsty_';
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    initApp();
+    setupGlobalListeners();
+});
+
+function initApp() {
+    updateCartCount();
+    checkAuthStatus();
+    loadModals();
+}
+
+function setupGlobalListeners() {
+    // Scroll Effect for Header
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('mainHeader');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            // Keep scrolled class if on subpages that need it
+            if (!document.body.classList.contains('index-page')) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+    });
+
+    // Search Toggle
+    const searchTrigger = document.getElementById('searchTrigger');
+    const searchExpand = document.getElementById('searchExpand');
+    const searchClose = document.getElementById('searchClose');
+
+    if (searchTrigger) {
+        searchTrigger.addEventListener('click', () => {
+            searchExpand.classList.add('active');
+            document.getElementById('searchInput').focus();
+        });
+    }
+
+    if (searchClose) {
+        searchClose.addEventListener('click', () => {
+            searchExpand.classList.remove('active');
+        });
+    }
+}
+
+// Dynamic Product Rendering
+function renderProducts(containerId, productList) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = productList.map(product => `
+        <div class="product-card glass" data-id="${product.id}">
+            <div class="product-image-wrap" onclick="location.href='product-details.html?id=${product.id}'">
+                <img src="${product.image}" alt="${product.title}">
+                <div class="wishlist-btn" onclick="toggleWishlist(event, ${product.id})">
+                    <i class="${isProductInWishlist(product.id) ? 'fas' : 'far'} fa-heart"></i>
+                </div>
+            </div>
+            <div class="product-info">
+                <span class="product-category">${product.category}</span>
+                <h3 class="product-title" onclick="location.href='product-details.html?id=${product.id}'">${product.title}</h3>
+                <div class="price-row">
+                    <span class="price">$${parseFloat(product.price).toFixed(2)}</span>
+                    <button class="add-cart-btn" onclick="handleAddToCart(event, ${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                        Add to Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Global Wishlist Logic
+function toggleWishlist(event, productId) {
+    event.stopPropagation();
+    let wishlist = JSON.parse(localStorage.getItem(STORAGE_PREFIX + 'wishlist')) || [];
+    const index = wishlist.indexOf(productId);
+    
+    if (index === -1) {
+        wishlist.push(productId);
+        showNotification('Added to Wishlist', 'success');
+    } else {
+        wishlist.splice(index, 1);
+        showNotification('Removed from Wishlist', 'info');
+    }
+    
+    localStorage.setItem(STORAGE_PREFIX + 'wishlist', JSON.stringify(wishlist));
+    
+    // Update icons in the DOM
+    const icon = event.currentTarget.querySelector('i');
+    icon.classList.toggle('fas');
+    icon.classList.toggle('far');
+}
+
+function isProductInWishlist(productId) {
+    let wishlist = JSON.parse(localStorage.getItem(STORAGE_PREFIX + 'wishlist')) || [];
+    return wishlist.includes(productId);
+}
+
+// Improved Add to Cart Feedback
+function handleAddToCart(event, product) {
+    const btn = event.currentTarget;
+    if (btn.disabled) return;
+
+    addToCart(product);
+    
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-check"></i> Added';
+    btn.style.background = 'var(--accent)';
+    
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        btn.style.background = '';
+    }, 2000);
+}
+
+// Common Modal Loader
+function loadModals() {
+    const container = document.getElementById('modalsContainer');
+    if (container && !container.innerHTML) {
+        fetch('common-modals.html')
+            .then(res => res.text())
+            .then(html => {
+                container.innerHTML = html;
+                setupModalHandlers();
+                setupAuthForms();
+            });
+    }
+}
+
+function showNotification(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast-notification ${type} active`;
+    toast.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
     const header = document.querySelector('header');
     
     if (header) {

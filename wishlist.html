@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist — Wellsty</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .page-wrapper{max-width:1320px;margin:0 auto;padding:0 1.5rem;padding-top:calc(38px + var(--header-h) + 2rem);padding-bottom:5rem;min-height:80vh}
+    .page-title{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;margin-bottom:.5rem}
+    .page-sub{color:var(--text-muted);margin-bottom:2.5rem}
+  </style>
+</head>
+<body>
+<header class="site-header scrolled" id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a>
+    <nav class="main-nav"><a href="shop.html" class="nav-link">Shop</a><a href="shop.html?c=mens-fashion" class="nav-link">Men</a><a href="shop.html?c=womens-fashion" class="nav-link">Women</a></nav>
+    <div class="header-actions">
+      <div class="user-dropdown-wrap" id="userDropdownWrap" style="display:none"><button class="action-btn" id="userMenuBtn"><i class="far fa-user"></i></button><div class="user-dropdown" id="userDropdown"><div class="user-dd-links" style="display:block"><a href="profile.html"><i class="far fa-user"></i> Profile</a><a href="orders.html"><i class="fas fa-box"></i> Orders</a><a href="wishlist.html" style="color:var(--text)"><i class="far fa-heart"></i> Wishlist</a><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></div>
+      <button class="action-btn cart-action" id="cartBtn"><i class="fas fa-shopping-bag"></i><span class="badge-count" id="cartCount">0</span></button>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<div class="mobile-nav" id="mobileNav"><div class="mobile-nav-header"><a href="index.html" class="brand-logo">W<span class="logo-e"><span></span></span>LLSTY</a><button class="mobile-nav-close" id="mobileNavClose"><i class="fas fa-times"></i></button></div><div class="mobile-nav-userinfo" id="mobileNavUserInfo"><p>Hello, <span id="mobileUserName">User</span>! <a href="profile.html">Account</a></p></div><nav class="mobile-nav-links"><a href="profile.html"><i class="far fa-user"></i> Profile</a><a href="orders.html"><i class="fas fa-box"></i> Orders</a><a href="wishlist.html"><i class="far fa-heart"></i> Wishlist</a><a href="shop.html"><i class="fas fa-store"></i> Shop</a></nav></div>
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar"><div class="cart-header"><h3>Your Bag</h3><button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button></div><div class="cart-body" id="cartBody"><div class="cart-empty" id="cartEmpty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p></div><div id="cartItems"></div></div><div class="cart-footer" id="cartFooter" style="display:none"><div class="cart-totals"><div class="total-row grand-total"><span>Total</span><span id="cartTotal">₹0</span></div></div><a href="checkout.html" class="btn-solid checkout-btn">Checkout</a></div></div>
+
+<div class="page-wrapper">
+  <div id="authAlert" style="display:none;text-align:center;padding:5rem 0">
+    <i class="fas fa-heart" style="font-size:3rem;color:var(--accent);margin-bottom:1.5rem"></i>
+    <h2>Save Your Favorites</h2>
+    <p style="color:var(--text-muted);margin-bottom:2rem">Please login to view and save items to your wishlist.</p>
+    <a href="index.html" class="btn-solid">Go Home</a>
+  </div>
+
+  <div id="wishlistContent" style="display:none">
+    <div style="display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem">
+      <h1 class="page-title">My Wishlist</h1>
+      <p class="page-sub" style="margin:0"><span id="wlCountTxt">0 items</span></p>
+    </div>
+    
+    <div id="loading" style="text-align:center;padding:4rem 0">
+      <div class="spinner" style="width:40px;height:40px;border-width:3px;margin:auto"></div>
+    </div>
+    
+    <div class="products-grid" id="wishlistGrid"></div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/ui.js"></script>
+<script>
+async function loadWishlist() {
+  const token = localStorage.getItem('wellsty_token');
+  if (!token) { document.getElementById('authAlert').style.display='block'; return; }
+  document.getElementById('wishlistContent').style.display='block';
+  document.getElementById('userDropdownWrap').style.display='block';
+  
+  try {
+    const data = await api.getWishlist();
+    document.getElementById('loading').style.display='none';
+    const grid = document.getElementById('wishlistGrid');
+    
+    if (!data.wishlist?.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:5rem 0"><i class="far fa-heart" style="font-size:4rem;color:var(--border-bright);margin-bottom:1.5rem"></i><h3 style="font-size:1.5rem;margin-bottom:.5rem">Your Wishlist is Empty</h3><p style="color:var(--text-muted);margin-bottom:1.5rem">Save items you like and they will show up here.</p><a href="shop.html" class="btn-solid">Explore Products</a></div>`;
+      document.getElementById('wlCountTxt').textContent = '0 items';
+      return;
+    }
+
+    document.getElementById('wlCountTxt').textContent = `${data.wishlist.length} items`;
+    
+    grid.innerHTML = data.wishlist.map(p => {
+      // Create product card but ensure the heart is filled and toggles off on click
+      let card = buildProductCard(p);
+      card = card.replace('far fa-heart', 'fas fa-heart'); // Fill heart
+      card = card.replace('product-action-btn', 'product-action-btn wishlisted'); // active styling
+      
+      // wrap quickAddToCart inside a try to stop event propagation effectively
+      card = card.replace('quickAddToCart', 'event.stopPropagation(); quickAddToCart');
+      
+      return `
+        <div style="position:relative" id="wish-item-${p._id}">
+          ${card}
+        </div>
+      `;
+    }).join('');
+
+    // Ensure the wishlistCount updates
+    wishlistIds = new Set(data.wishlist.map(w => w._id));
+    localStorage.setItem('wellsty_wishlist', JSON.stringify([...wishlistIds]));
+    updateWishlistCount();
+
+  } catch(e) {
+    document.getElementById('loading').innerHTML = `<p style="color:var(--accent)">Failed to load wishlist: ${e.message}</p>`;
+  }
+}
+
+// Override handleWishlistToggle to remove items directly from DOM instead of just toggling icon
+const originalHandleWishlistToggle = window.handleWishlistToggle;
+window.handleWishlistToggle = async function(pid, btn) {
+  if (location.pathname.includes('wishlist.html')) {
+     await originalHandleWishlistToggle(pid, btn);
+     const itemCard = document.getElementById(`wish-item-${pid}`);
+     if (itemCard && !wishlistIds.has(pid)) {
+       itemCard.style.opacity = '0';
+       setTimeout(() => {
+          itemCard.remove();
+          document.getElementById('wlCountTxt').textContent = `${wishlistIds.size} items`;
+          if (wishlistIds.size === 0) loadWishlist(); // reload empty state
+       }, 300);
+     }
+  } else {
+     await originalHandleWishlistToggle(pid, btn);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadWishlist);
+</script>
+</body>
+</html>
